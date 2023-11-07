@@ -1,0 +1,11 @@
+/* .navbar-ul {
+    list-style-type: none;
+}
+.navbar-item {
+    display: inline;
+} */
+
+.navbar {
+    background-color: #FBF8E6;
+    color: #212122;
+}

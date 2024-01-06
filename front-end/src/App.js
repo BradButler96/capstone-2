@@ -27,10 +27,10 @@ function App() {
     text: '',
     type: '',
     for: '',
-    open: false
+    open: false,
+    timer: 10
   }
 
-  // const navigate = useNavigate();
   const [localUser, setLocalUser] = useLocalStorage('user', userInitState)
   const [currUser, setCurrUser] = useState(localUser)
   const [flashMsg, setFlashMsg] = useState(flashInitState)
@@ -49,8 +49,9 @@ function App() {
       setFlashMsg({
         text: `Welcome ${userInfo.user.username}`,
         type: 'success',
-        for: 'home',
-        open: true
+        for: 'profile',
+        open: true,
+        timer: 10
       })
 
     } catch (err) {
@@ -58,7 +59,8 @@ function App() {
         text: err[0],
         type: 'danger',
         for: 'registration',
-        open: true
+        open: true,
+        timer: 10
       })
     }
   }
@@ -87,7 +89,8 @@ function App() {
         text: err[0],
         type: 'danger',
         for: 'login',
-        open: true
+        open: true,
+        timer: 10
       })
     }
   }
@@ -102,8 +105,9 @@ function App() {
       setFlashMsg({
         text: `Welcome ${userInfo.user.username}`,
         type: 'success',
-        for: 'home',
-        open: true
+        for: 'profile',
+        open: true,
+        timer: 10
       })
 
     } catch (err) {
@@ -111,7 +115,8 @@ function App() {
         text: err[0],
         type: 'danger',
         for: 'login',
-        open: true
+        open: true,
+        timer: 10
       })
     }
   }
@@ -123,27 +128,18 @@ function App() {
     setFlashMsg({
       text: 'See you later!',
       type: 'info',
-      for: 'logout',
-      open: true
+      for: 'login',
+      open: true,
+      timer: 10
     })
   }
 
   const updateFavorite = async (action, id) => {
-
     const updatedFavs = await PortTrackerAPI.updateFavorites(currUser.username, action, id)
-    // console.log(updatedFavs)
-    // const favStr = updatedFavs.favorites.join(',')
-    // console.log(favStr)
-
-    // const favoriteTokens = await CryptoAPI.getFavoriteTokens(favStr);
-
-    // console.log(favoriteTokens)
-
     setLocalUser({
       ...localUser,
       favorites: updatedFavs
     })
-
   }
 
   const getFavoriteTokens = async () => {
@@ -190,14 +186,16 @@ function App() {
         text: `Transaction has been added`,
         type: 'success',
         for: 'profile',
-        open: true
+        open: true,
+        timer: 10
       })
     } else {
       setFlashMsg({
         text: `Token could not be found. Make sure you submitted the selected asset ID type.`,
         type: 'danger',
         for: 'profile',
-        open: true
+        open: true,
+        timer: 10
       })
     }
   }
@@ -208,21 +206,23 @@ function App() {
     PortTrackerAPI.token = localUser.token
   }, [localUser])
 
+
   // Set timer to remove flash message
   useEffect(() => {
-    flashMsg !== flashInitState ? (
+    if (flashMsg.open) {
       setInterval(() => {
         setTimer((timer) => timer -= 1)
       }, 1000)
-     ) : (
+    } else {
       setTimer(10)
-     )
+    }
   }, [flashMsg])
 
   // Remove flash message after 10 seconds
   useEffect(() => {
     if (timer === 0) {
       flashMsg.open = false
+      setTimer(10)
     }
   }, [timer])
 

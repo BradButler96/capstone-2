@@ -66,9 +66,7 @@ const Profile = ({ editUser, currUser, flashMsg, addTrade, updateFavorite }) => 
                     <div className='mx-auto col-10'>
                         <FlashMsg flashMsg={flashMsg} />
                     </div>
-                ) : (
-                    <></>
-                )}
+                ) : <></>}
                 <div className='user-info-edit-form'
                      style={{display: formDisplay}}>
                         <ProfileEditForm currUser={currUser} toggleForm={toggleForm} editUser={editUser} />

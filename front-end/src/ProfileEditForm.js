@@ -34,13 +34,12 @@ const ProfileEditForm = ({ currUser, toggleForm, editUser }) => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // ******************** Fill in empty fields ********************
         await editUser({ 
             user: {
                 password: formData.password,
-                firstName: formData.firstName,
-                lastName: formData.lastName,
-                email: formData.email
+                firstName: formData.firstName ? formData.firstName : currUser.firstName,
+                lastName: formData.lastName ? formData.lastName : currUser.lastName,
+                email: formData.email ? formData.email : currUser.email
             } 
         });
         setFormData(initialState)
@@ -49,9 +48,10 @@ const ProfileEditForm = ({ currUser, toggleForm, editUser }) => {
 
     return (
         <div className='mx-auto col-6'>
-            <div className='display-5 text-start border-bottom mt-5'>{`Edit ${currUser.username}`}</div>
+            <div className='display-5 text-start border-bottom mt-5'>
+                {`Edit ${currUser.username}`}
+            </div>
             <Form onSubmit={handleSubmit} className='form my-4'>
-
                 <Form.Group className='my-2'>
                     {formData.email === '' ? (
                         <Form.Control 
@@ -174,9 +174,7 @@ const ProfileEditForm = ({ currUser, toggleForm, editUser }) => {
                 </Row>
             </Form>
         </div>
-
     )
-
 }
 
 export default ProfileEditForm

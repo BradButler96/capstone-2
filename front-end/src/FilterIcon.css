@@ -1,0 +1,7 @@
+.sort-arrow {
+    color:#332D2D;
+}
+
+.table-header:hover .sort-arrow {
+    color:#FBFBFB;
+}

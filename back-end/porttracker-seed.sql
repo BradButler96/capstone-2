@@ -15,5 +15,45 @@ VALUES (
         'Admin!',
         'test.admin@email.com',
         TRUE
+    ),(
+        'extrauser',
+        '$2b$12$emwOFUyQIhPTrdye4inCX.iZhXo9P65MCkq1AQiLdPGg3YCzdv4hC',
+        'Extra',
+        'User',
+        'extra.user@email.com',
+        FALSE
     );
 
+
+INSERT INTO favorites (token_id, user_id)
+VALUES (
+        '1',
+        '1'
+    ),(
+        '1027',
+        '1'
+    ),(
+        '825',
+        '2'
+    ),(
+        '1839',
+        '2'
+    ),(
+        '1',
+        '3'
+    ),(
+        '1027',
+        '3'
+    ),(
+        '825',
+        '3'
+    ),(
+        '1839',
+        '3'
+    );
+
+-- INSERT INTO buy_orders (user_id, token_id, token_name, quantity, price)
+-- VALUES ('3', '1', 'Bitcoin', '0.5', '20000');
+
+-- INSERT INTO sell_orders (user_id, token_id, token_name, quantity, price)
+-- VALUES ('3', '1', 'Bitcoin', '0.5', '24000');

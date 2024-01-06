@@ -1,0 +1,15 @@
+.posChange {
+    color: green
+}
+
+.negChange {
+    color: red
+}
+
+table {
+    table-layout: auto !important;
+}
+
+th, tr, td {
+    width: auto !important;
+}

@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button } from "reactstrap";
+import { Row, Form, FloatingLabel, InputGroup, Button } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
-import UploadWidget from './UploadWidget'
+import UploadWidget from './UploadWidget';
+import './Form.css'
 
 const NewUserForm = ({ register }) => {
     const initialState = {
@@ -17,8 +18,6 @@ const NewUserForm = ({ register }) => {
 
     const [formData, setFormData] = useState(initialState);
     const [passwordType, setPasswordType] = useState('password');
-    const [submitted, setSubmitted] = useState(false);
-    const navigate = useNavigate();
 
     const togglePassword = () => {
         passwordType === 'password' 
@@ -47,125 +46,166 @@ const NewUserForm = ({ register }) => {
             } 
         });
         setFormData(initialState)
-        setSubmitted(true)
     }
 
-    useEffect(() => {
-        if (submitted) {
-            navigate('/')
-            setSubmitted(false)
-        }
-    }, [submitted])
-
     return (
-        <form className="form" onSubmit={handleSubmit}>
-            <div className='form-input-container text-start my-4'>
-                <label className="col-12 h5" htmlFor='username'>
-                    Username
-                </label>
-                <input 
-                    type='text'
-                    name='username'
-                    className="col-12 input-lg"
-                    value={formData.username || ''}
-                    onChange={handleChange}
-                />
-            </div>
+            <div className='mx-auto col-6'>
+                <div className='display-5 text-start border-bottom mt-5'>Register Here</div>
+                <Form onSubmit={handleSubmit} className='form my-4'>
+                    <Form.Group>
+                        {formData.username === '' ? (
+                            <Form.Control 
+                                type='text'
+                                name='username'
+                                placeholder='Username'
+                                value={formData.username || ''}
+                                onChange={handleChange}
+                            />
+                        ) : (
+                            <FloatingLabel controlId='username' label='Username'>
+                                <Form.Control 
+                                    autoFocus
+                                    type='text'
+                                    name='username'
+                                    placeholder='Username'
+                                    value={formData.username || ''}
+                                    onChange={handleChange}
+                                />
+                            </FloatingLabel>
+                        )}
+                    </Form.Group>
+                    <Form.Group className='form-input-container text-start my-4'>
+                        <InputGroup>
+                            {formData.password === '' ? (
+                                <Form.Control 
+                                    required
+                                    className='form-label'
+                                    type={passwordType}
+                                    name='password'
+                                    placeholder='Password'
+                                    value={formData.password || ''}
+                                    onChange={handleChange}
+                                />
+                            ) : (
+                                <FloatingLabel controlId='password' label='Password'>
+                                    <Form.Control
+                                        required
+                                        autoFocus
+                                        type={passwordType}
+                                        name='password'
+                                        placeholder='Password'
+                                        value={formData.password || ''}
+                                        onChange={handleChange}
+                                    />
+                                </FloatingLabel>
+                            )}
+    
+                            <Button variant="link" onClick={togglePassword}>
+                                {passwordType === 'password' 
+                                    ? <FontAwesomeIcon icon={faEye} /> 
+                                    : <FontAwesomeIcon icon={faEyeSlash} />}
+                            </Button>
+                        </InputGroup>
+                    </Form.Group>
+    
+                    <Row className='my-4'>
+                        <Form.Group className='col-6'>
+                            {formData.firstName === '' ? (
+                                <Form.Control 
+                                    type='text'
+                                    name='firstName'
+                                    placeholder='First Name'
+                                    value={formData.firstName || ''}
+                                    onChange={handleChange}
+                                />
+                            ) : (
+                                <FloatingLabel controlId='firstName' label='First Name'>
+                                    <Form.Control 
+                                        autoFocus
+                                        type='text'
+                                        name='firstName'
+                                        placeholder='firstName'
+                                        value={formData.firstName || ''}
+                                        onChange={handleChange}
+                                    />
+                                </FloatingLabel>
+                            )}
+                        </Form.Group>
+                        <Form.Group className='col-6'>
+                            {formData.lastName === '' ? (
+                                <Form.Control 
+                                    type='text'
+                                    name='lastName'
+                                    placeholder='Last Name'
+                                    value={formData.lastName || ''}
+                                    onChange={handleChange}
+                                />
+                            ) : (
+                                <FloatingLabel controlId='lastName' label='Last Name'>
+                                    <Form.Control 
+                                        autoFocus
+                                        type='text'
+                                        name='lastName'
+                                        placeholder='Last Name'
+                                        value={formData.lastName || ''}
+                                        onChange={handleChange}
+                                    />
+                                </FloatingLabel>
+                            )}
+                        </Form.Group>
+                    </Row>
+    
+                    <Form.Group className='my-2'>
+                        {formData.email === '' ? (
+                            <Form.Control 
+                                type='email'
+                                name='email'
+                                placeholder='Email'
+                                value={formData.email || ''}
+                                onChange={handleChange}
+                            />
+                        ) : (
+                            <FloatingLabel controlId='email' label='Email'>
+                                <Form.Control 
+                                    autoFocus
+                                    type='email'
+                                    name='email'
+                                    placeholder='Email'
+                                    value={formData.email || ''}
+                                    onChange={handleChange}
+                                />
+                            </FloatingLabel>
+                        )}
+                    </Form.Group>
 
-            <div className='form-input-container text-start my-4'>
-                <label className="col-10 h5" htmlFor='password'>
-                    Password
-                </label>
-                <input 
-                    type={passwordType}
-                    name='password'
-                    className="col-11 input-lg"
-                    value={formData.password || ''}
-                    onChange={handleChange}
-                />
-                <Button 
-                    className="col-1 px-0" 
-                    size='sm' 
-                    onClick={() => togglePassword()} 
-                >
-                    {passwordType === 'password' 
-                    ? <FontAwesomeIcon icon={faEye} /> 
-                    : <FontAwesomeIcon icon={faEyeSlash} />}
-                </Button>
-                <small className='col-12 text-center'>20 characters max</small>
-            </div>
-
-            <div className='form-label-container text-start mt-4 row'>
-                <div className='form-label-input-container text-start col-6'>
-                    <div className='form-input-container col-11 d-flex'>
-                        <label className="h5 me-auto" htmlFor='firstName'>
-                            First Name
+                    <div className='form-input-container text-start my-4'>
+                        <label className="col-12 h5" htmlFor='email'>
+                            Profile Picture
                         </label>
-                    </div>
-                    <div className='form-input-container col-12 d-flex'>
-                        <input 
-                            type='text'
-                            name='firstName'
-                            className="col-11 input-lg me-auto"
-                            value={formData.firstName || ''}
+                        <UploadWidget />
+                        {/* <input 
+                            type='file'
+                            name='pfp'
+                            className="col-12 input-lg me-auto"
+                            value={formData.pfp || ''}
                             onChange={handleChange}
-                        />
+                            accept='image/*'
+                        /> */}
                     </div>
-                </div>
-                <div className='form-label-input-container text-start col-6 ms-auto'>
-                    <div className='form-input-container col-11 d-flex ms-auto'>
-                        <label className="col-12 h5" htmlFor='lastName'>
-                            Last Name
-                        </label>
-                    </div>
-                    <div className='form-input-container col-12 d-flex ms-auto'>
-                        <input 
-                            type='text'
-                            name='lastName'
-                            className="col-11 input-lg ms-auto"
-                            value={formData.lastName || ''}
-                            onChange={handleChange}
-                        />
-                    </div>
-                </div>
+    
+                    <Row>
+                        <Form.Group className='my-3'>
+                            <Button 
+                                type='submit'
+                                variant='outline-success'
+                                className='col-4 mx-2' 
+                            >Submit</Button>
+                        </Form.Group>
+                    </Row>
+                </Form>
             </div>
-            <div className='form-input-container text-start my-4'>
-                <label className="col-12 h5" htmlFor='email'>
-                    Email
-                </label>
-                <input 
-                    type='email'
-                    name='email'
-                    className="col-12 input-lg me-auto"
-                    value={formData.email || ''}
-                    onChange={handleChange}
-                />
-            </div>
-
-            <div className='form-input-container text-start my-4'>
-                <label className="col-12 h5" htmlFor='email'>
-                    Profile Picture
-                </label>
-                <UploadWidget />
-                {/* <input 
-                    type='file'
-                    name='pfp'
-                    className="col-12 input-lg me-auto"
-                    value={formData.pfp || ''}
-                    onChange={handleChange}
-                    accept='image/*'
-                /> */}
-            </div>
-
-            <Button 
-                className='login-btn col-6 mx-auto my-2' 
-                color="success" 
-                size='lg'
-                outline
-            >Submit</Button>
-        </form>
-    )
-
+    
+        )
 }
 
 export default NewUserForm

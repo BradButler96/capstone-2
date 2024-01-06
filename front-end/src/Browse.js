@@ -1,230 +1,121 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import { Card, CardBody, CardTitle, Button } from "reactstrap";
-import { Switch, Stack, Typography } from '@mui/material';
-import { v4 as uuid } from 'uuid';
-
+import { React, useState, useEffect, useRef } from "react";
+import { useSearchParams } from 'react-router-dom';
+import { Button } from "reactstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import AssetTile from './AssetTile'
-import FlashMsg from './FlashMsg'
 import CryptoAPI from './CryptoAPI'
+import SortingClass from './SortingClass'
+import DropdownCat from './DropdownCat'
+import TokenTable from './TokenTable'
+import LoadingIcon from './LoadingIcon'
 
-
-const Browse = ({ currUser, flashMsg }) => {
+const Browse = ({ currUser, categories, setCategories, updateFavorite }) => {
     
-    const [browseCrypto, setBrowseType] = useState(true)
-    const [tokenList, setTokenList] = useState([])
+    const [searchParams] = useSearchParams()
+    const category = searchParams.get('category')
+    const [tokenList, setTokenList] = useState()
+    const sortBy = useRef('')
+    const sortDirection = useRef('')
 
+    const checkOverlap = (arr1, arr2) => {
+        const lastArr1 = arr1[arr1.length - 1]
+        const firstArr2 = arr2[0]
 
-    const getTokens = async () => {
-        const res = await CryptoAPI.getTokenList();        
-        return res.tokens
+        if (lastArr1.cmc_rank >= firstArr2.cmc_rank) return checkOverlap(arr1.slice(0, -1), arr2)
+        else return [...arr1, ...arr2]
+    } 
+
+    const filterDuplicates = (data, key) => data.map(x => (key(x), x))
+
+    const getCrypto = async () => {
+        const res = await CryptoAPI.getTokenList(); 
+        const sorted = res.tokens.sort((a,b) => a.cmc_rank - b.cmc_rank)
+        // API returns duplicates of tokens in array
+        const filtered = filterDuplicates(sorted, obj => obj.rank)
+        return filtered
+    }
+
+    // **************************************** Revisit this ****************************************
+    // Rewrite to get new tokenList from start to finish
+    const loadMoreTokens = async () => {
+        const res = await CryptoAPI.getTokenList(tokenList.length);
+        const sortedRes = res.tokens.sort((a,b) => a.cmc_rank - b.cmc_rank)
+        const filtered = checkOverlap(tokenList, sortedRes)   
+        const sorted = SortingClass.sortTokens(filtered, sortBy.current, sortBy.current, sortDirection.current)
+        setTokenList(sorted)        
+    }
+
+    // **************************************** Revisit this ****************************************
+    const sortTokens = async (header) => {
+        if (header !== sortBy.current) sortDirection.current = 'ascending'
+        else {
+            if (sortDirection.current === 'ascending') sortDirection.current = 'descending'
+            else if (sortDirection.current === 'descending') sortDirection.current = ''
+            else sortDirection.current = 'ascending'
+        }
+
+        if (header === 'favorites' && sortDirection.current === '') {
+            const res = await getCrypto()
+            setTokenList(res)
+        } else if (header === 'favorites' && sortDirection.current !== '') {
+            // Rewrite so it gets all favorited tokens, places them in front of tokenList
+            // Order tokenList by favorites then mcap
+            const res = await CryptoAPI.getFavoriteTokens(currUser.favorites.join(','))
+            const favoriteTokens = Object.keys(res.token.data).map(key => res.token.data[key])
+            const tokens = SortingClass.sortTokens(favoriteTokens, header, sortDirection.current)
+            setTokenList(tokens)
+        } else {
+            setTokenList(SortingClass.sortTokens(tokenList, header, sortDirection.current))
+        }
+
+        sortBy.current = header
     }
 
     useEffect(() => {
         const getAssets = async () => {
-            // const res = browseCrypto ? (
-            //     await getTokens()
-            // ) : (
-            //     'Stock'
-            // )
-            // console.log(res)
-            // setTokenList(res)
-            // return tokenList
+            if (categories === undefined) {
+                const cats = await CryptoAPI.getCats()
+                const filtered = cats.categories.data.filter(cat => cat.num_tokens > 0 && cat.market_cap > 0)
+                setCategories(SortingClass.sortCats(filtered, 'name', 'ascending'))
+            }
 
-
-            setTokenList([
-                {
-                    "id":1,
-                    "name":"Bitcoin",
-                    "symbol":"BTC",
-                    "slug":"bitcoin",
-                    "num_market_pairs":10518,
-                    "date_added":"2010-07-13T00:00:00.000Z",
-                    "tags":[
-                        {"slug":"mineable","name":"Mineable","category":"OTHERS"},
-                        {"slug":"pow","name":"PoW","category":"ALGORITHM"},
-                        {"slug":"sha-256","name":"SHA-256","category":"ALGORITHM"},
-                        {"slug":"store-of-value","name":"Store Of Value","category":"CATEGORY"},
-                        {"slug":"state-channel","name":"State Channel","category":"CATEGORY"},
-                        {"slug":"coinbase-ventures-portfolio","name":"Coinbase Ventures Portfolio","category":"CATEGORY"},
-                        {"slug":"three-arrows-capital-portfolio","name":"Three Arrows Capital Portfolio","category":"CATEGORY"},
-                        {"slug":"polychain-capital-portfolio","name":"Polychain Capital Portfolio","category":"CATEGORY"},
-                        {"slug":"binance-labs-portfolio","name":"Binance Labs Portfolio","category":"CATEGORY"},
-                        {"slug":"blockchain-capital-portfolio","name":"Blockchain Capital Portfolio","category":"CATEGORY"},
-                        {"slug":"boostvc-portfolio","name":"BoostVC Portfolio","category":"CATEGORY"},
-                        {"slug":"cms-holdings-portfolio","name":"CMS Holdings Portfolio","category":"CATEGORY"},
-                        {"slug":"dcg-portfolio","name":"DCG Portfolio","category":"CATEGORY"},
-                        {"slug":"dragonfly-capital-portfolio","name":"DragonFly Capital Portfolio","category":"CATEGORY"},
-                        {"slug":"electric-capital-portfolio","name":"Electric Capital Portfolio","category":"CATEGORY"},
-                        {"slug":"fabric-ventures-portfolio","name":"Fabric Ventures Portfolio","category":"CATEGORY"},
-                        {"slug":"framework-ventures-portfolio","name":"Framework Ventures Portfolio","category":"CATEGORY"},
-                        {"slug":"galaxy-digital-portfolio","name":"Galaxy Digital Portfolio","category":"CATEGORY"},
-                        {"slug":"huobi-capital-portfolio","name":"Huobi Capital Portfolio","category":"CATEGORY"},
-                        {"slug":"alameda-research-portfolio","name":"Alameda Research Portfolio","category":"CATEGORY"},
-                        {"slug":"a16z-portfolio","name":"a16z Portfolio","category":"CATEGORY"},
-                        {"slug":"1confirmation-portfolio","name":"1Confirmation Portfolio","category":"CATEGORY"},
-                        {"slug":"winklevoss-capital-portfolio","name":"Winklevoss Capital Portfolio","category":"CATEGORY"},
-                        {"slug":"usv-portfolio","name":"USV Portfolio","category":"CATEGORY"},
-                        {"slug":"placeholder-ventures-portfolio","name":"Placeholder Ventures Portfolio","category":"CATEGORY"},
-                        {"slug":"pantera-capital-portfolio","name":"Pantera Capital Portfolio","category":"CATEGORY"},
-                        {"slug":"multicoin-capital-portfolio","name":"Multicoin Capital Portfolio","category":"CATEGORY"},
-                        {"slug":"paradigm-portfolio","name":"Paradigm Portfolio","category":"CATEGORY"},
-                        {"slug":"bitcoin-ecosystem","name":"Bitcoin Ecosystem","category":"PLATFORM"},
-                        {"slug":"ftx-bankruptcy-estate","name":"FTX Bankruptcy Estate ","category":"CATEGORY"}
-                    ],
-                    "max_supply":21000000,
-                    "circulating_supply":19531518,
-                    "total_supply":19531518,
-                    "is_active":1,
-                    "infinite_supply":false,
-                    "platform":null,
-                    "cmc_rank":1,
-                    "is_fiat":0,
-                    "self_reported_circulating_supply":null,
-                    "self_reported_market_cap":null,
-                    "tvl_ratio":null,
-                    "last_updated":"2023-11-03T00:28:00.000Z",
-                    "quote":{
-                        "USD":{
-                            "price":34801.0450615457,
-                            "volume_24h":20715503848.6481,
-                            "volume_change_24h":-8.2474,
-                            "percent_change_1h":-0.16182741,
-                            "percent_change_24h":-2.19074481,
-                            "percent_change_7d":2.04739676,
-                            "percent_change_30d":27.04990204,
-                            "percent_change_60d":34.21081451,
-                            "percent_change_90d":19.71640794,
-                            "market_cap":679717238038.391,
-                            "market_cap_dominance":52.7538,
-                            "fully_diluted_market_cap":730821946292.46,
-                            "tvl":null,
-                            "last_updated":"2023-11-03T00:28:00.000Z"
-                        }
-                    }
-                },{
-                    "id":1027,
-                    "name":"Ethereum",
-                    "symbol":"ETH",
-                    "slug":"ethereum",
-                    "num_market_pairs":7688,
-                    "date_added":"2015-08-07T00:00:00.000Z",
-                    "tags":[
-                        {"slug":"pos","name":"PoS","category":"ALGORITHM"},
-                        {"slug":"smart-contracts","name":"Smart Contracts","category":"CATEGORY"},
-                        {"slug":"ethereum-ecosystem","name":"Ethereum Ecosystem","category":"PLATFORM"},
-                        {"slug":"coinbase-ventures-portfolio","name":"Coinbase Ventures Portfolio","category":"CATEGORY"},
-                        {"slug":"three-arrows-capital-portfolio","name":"Three Arrows Capital Portfolio","category":"CATEGORY"},
-                        {"slug":"polychain-capital-portfolio","name":"Polychain Capital Portfolio","category":"CATEGORY"},
-                        {"slug":"binance-labs-portfolio","name":"Binance Labs Portfolio","category":"CATEGORY"},
-                        {"slug":"blockchain-capital-portfolio","name":"Blockchain Capital Portfolio","category":"CATEGORY"},
-                        {"slug":"boostvc-portfolio","name":"BoostVC Portfolio","category":"CATEGORY"},
-                        {"slug":"cms-holdings-portfolio","name":"CMS Holdings Portfolio","category":"CATEGORY"},
-                        {"slug":"dcg-portfolio","name":"DCG Portfolio","category":"CATEGORY"},
-                        {"slug":"dragonfly-capital-portfolio","name":"DragonFly Capital Portfolio","category":"CATEGORY"},
-                        {"slug":"electric-capital-portfolio","name":"Electric Capital Portfolio","category":"CATEGORY"},
-                        {"slug":"fabric-ventures-portfolio","name":"Fabric Ventures Portfolio","category":"CATEGORY"},
-                        {"slug":"framework-ventures-portfolio","name":"Framework Ventures Portfolio","category":"CATEGORY"},
-                        {"slug":"hashkey-capital-portfolio","name":"Hashkey Capital Portfolio","category":"CATEGORY"},
-                        {"slug":"kenetic-capital-portfolio","name":"Kenetic Capital Portfolio","category":"CATEGORY"},
-                        {"slug":"huobi-capital-portfolio","name":"Huobi Capital Portfolio","category":"CATEGORY"},
-                        {"slug":"alameda-research-portfolio","name":"Alameda Research Portfolio","category":"CATEGORY"},
-                        {"slug":"a16z-portfolio","name":"a16z Portfolio","category":"CATEGORY"},
-                        {"slug":"1confirmation-portfolio","name":"1Confirmation Portfolio","category":"CATEGORY"},
-                        {"slug":"winklevoss-capital-portfolio","name":"Winklevoss Capital Portfolio","category":"CATEGORY"},
-                        {"slug":"usv-portfolio","name":"USV Portfolio","category":"CATEGORY"},
-                        {"slug":"placeholder-ventures-portfolio","name":"Placeholder Ventures Portfolio","category":"CATEGORY"},
-                        {"slug":"pantera-capital-portfolio","name":"Pantera Capital Portfolio","category":"CATEGORY"},
-                        {"slug":"multicoin-capital-portfolio","name":"Multicoin Capital Portfolio","category":"CATEGORY"},
-                        {"slug":"paradigm-portfolio","name":"Paradigm Portfolio","category":"CATEGORY"},
-                        {"slug":"injective-ecosystem","name":"Injective Ecosystem","category":"PLATFORM"},
-                        {"slug":"layer-1","name":"Layer 1","category":"CATEGORY"},
-                        {"slug":"ftx-bankruptcy-estate","name":"FTX Bankruptcy Estate ","category":"CATEGORY"}
-                    ],
-                    "max_supply":null,
-                    "circulating_supply":120268792.38734597,
-                    "total_supply":120268792.38734597,
-                    "is_active":1,"infinite_supply":true,
-                    "platform":null,
-                    "cmc_rank":2,
-                    "is_fiat":0,
-                    "self_reported_circulating_supply":null,
-                    "self_reported_market_cap":null,
-                    "tvl_ratio":null,
-                    "last_updated":"2023-11-03T00:29:00.000Z",
-                    "quote":{
-                        "USD":{
-                            "price":1793.5856067959915,
-                            "volume_24h":8918289595.708378,
-                            "volume_change_24h":-15.7961,
-                            "percent_change_1h":-0.31559359,
-                            "percent_change_24h":-3.15621962,
-                            "percent_change_7d":-0.3672651,
-                            "percent_change_30d":8.69678671,
-                            "percent_change_60d":9.65008083,
-                            "percent_change_90d":-1.91733694,
-                            "market_cap":215712374972.67905,
-                            "market_cap_dominance":16.7399,
-                            "fully_diluted_market_cap":215712374972.68,
-                            "tvl":null,
-                            "last_updated":"2023-11-03T00:29:00.000Z"
-                        }
-                    }
-                }
-            ])
-
-
-
+            if (searchParams.get('category') === null) {    
+                const res = await getCrypto()
+                setTokenList(res)
+            } else {
+                const res = await CryptoAPI.getTokensByCat(searchParams.get('category'))
+                setTokenList(res.tokens.data.coins)
+            }            
         }
         getAssets()
-    }, [browseCrypto])
-
-
+    }, [category])
 
     return (
-    <div className='home-container'>
-        <Card className='mx-auto col-11'>
-            <Stack direction="row" spacing={1} alignItems="center">
-                <Typography>Stocks</Typography>
-                <Switch  
-                    checked={browseCrypto}
-                    color="default"
-                    onChange={() => {browseCrypto ? setBrowseType(false) : setBrowseType(true)}} 
-                    inputProps={{ 'aria-label': 'controlled' }}
-                />
-                <Typography>Crypto</Typography>
-            </Stack>
-
-
-            <CardBody className='col-12 mx-auto'>
-                {browseCrypto ? (
-                    <>
-                        <CardTitle className="text-center" style={{ fontSize: 'xx-large' }}>
-                            Cryptocurrency
-                        </CardTitle>
-                        <ol >
-                            {tokenList.map(token => {
-                                return (
-                                    <li key={uuid()}>
-                                        <AssetTile type='crypto' asset={token} />
-                                    </li>
-                                )
-                            })}
-                        </ol>
-                    </>
+        <div className='mx-auto col-lg-10 col-xs-12 col-sm-12'>
+            <div className='text-start border-bottom display-4 mt-4'>
+                Tokens
+            </div>
+            <span className='text-start mx-5'>
+                <DropdownCat type='Categories' options={categories} catID={category} />
+            </span>
+            <div className='my-2'>
+                {tokenList ? (               
+                    <TokenTable 
+                        currUser={currUser}
+                        tokenList={tokenList} 
+                        updateFavorite={updateFavorite}
+                        sortBy={sortBy.current} 
+                        sortDirection={sortDirection.current} 
+                        sortTokens={sortTokens}
+                        forFavs={false}
+                    />        
                 ) : (
-                    <>
-                        <CardTitle className="text-center" style={{ fontSize: 'xx-large' }}>
-                            Stocks
-                        </CardTitle>
-
-                        <AssetTile type='stock' />
-                    </>
+                    <div classname='mx-5'>
+                        <LoadingIcon />
+                    </div>
                 )}
-            </CardBody>
-        </Card>   
-    </div>
+            </div>
+            <Button className='col-3 mt-3 mb-4 mx-auto' onClick={() => loadMoreTokens()}>Load More</Button>
+        </div>   
     )
 
 }

@@ -1,5 +1,5 @@
 import axios from "axios";
-import PortTrackerAPI from './PortTrackerAPI'
+// import PortTrackerAPI from './PortTrackerAPI'
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || "http://localhost:3001";
 
@@ -8,7 +8,7 @@ class CryptoAPI {
         console.debug("API Call:", endpoint, data, method);
     
         const url = `${BASE_URL}/${endpoint}`;
-        const headers = { Authorization: `Bearer ${PortTrackerAPI.token}` };
+        const headers = {};
         const params = (method === 'get') ? data : {};
     
         try {
@@ -20,15 +20,49 @@ class CryptoAPI {
         }
     }
 
-    static async getTokenList(start = 1, limit = 20, sort = 'cmc_rank') {
-      const res = await this.request(`crypto/browse`, {start: start, limit: limit, sort: sort});
+    static async getTokenList(start = 1, limit = 10) {
+      const res = await this.request(`crypto/browse`, {
+        start: start, 
+        limit: limit
+      });
       return res
     }
 
-    // static async getTokenInfo(IDs) {
-    //   console.log(IDs)
-    //   return IDs
-    // }
+    static async getToken(idType, idVal) {
+      const res = await this.request(`crypto/token`, {
+        idType: idType === 'name' ? 'slug' : idType,
+        idVal: idVal
+      });
+      return res
+    }
+
+    static async getFavoriteTokens(tokenIDs) {
+      const res = await this.request(`crypto/token/favorites`, {
+        tokenIDs: tokenIDs
+      });
+      return res
+    }
+
+    static async getTokensByCat(catID, start = 1, limit = 100) {
+      const res = await this.request(`crypto/categories/${catID}`, {
+        catID: catID, 
+        start: start, 
+        limit: limit
+      });
+      return res
+    }    
+
+    static async getCats() {
+      const res = await this.request(`crypto/categories/list`);
+      return res
+    }
+
+    static async getCatID(tokenID) {
+      const res = await this.request(`crypto/categories`, {
+        tokenID: tokenID, 
+      });
+      return res
+    }
 }
 
 export default CryptoAPI

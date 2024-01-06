@@ -25,7 +25,6 @@ class PortTrackerAPI {
   static async register(user) {
     const res = await this.request(`auth/register`, user, 'post');
     PortTrackerAPI.token = res.token
-    console.log('test')
 
     return res.token
   }
@@ -44,17 +43,29 @@ class PortTrackerAPI {
   static async getUserInfo(username) {
     if (username !== '') {
       const res = await this.request(`users/${username}`)
-      res.user['token'] = PortTrackerAPI.token
+      res.user.token = PortTrackerAPI.token
       return res.user
     }
   }
 
-  static async editProfile(username, editedInfo) {
-    const res = await this.request(`users/${username}`, editedInfo, 'patch')
-    res.user['token'] = PortTrackerAPI.token
-    return res.user
+  static async editProfile(username, userInfo) {
+      const res = await this.request(`users/${username}`, userInfo, 'patch')
+
+      res.user.token = PortTrackerAPI.token
+      return res.user
+
   }
 
+  static async updateFavorites(username, action, tokenID) {
+    const info = {action:action, id: tokenID}
+    const res = await this.request(`users/${username}/favorites`, info, 'patch')
+    return res.favorites
+  }
+
+  static async addTxn(data) {
+    const res = await this.request(`users/${data.username}/trades`, data, 'post')
+    return res.updatedOrders
+  }
 }
 
 // for now, put token ("testuser" / "password" on class)

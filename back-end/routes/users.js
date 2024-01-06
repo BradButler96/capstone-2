@@ -43,7 +43,6 @@ router.post("/", ensureAdmin, async function (req, res, next) {
   }
 });
 
-
 /** GET / => { users: [ {username, firstName, lastName, email }, ... ] }
  *
  * Returns list of all users.
@@ -60,18 +59,33 @@ router.get("/", ensureAdmin, async function (req, res, next) {
   }
 });
 
-
 /** GET /[username] => { user }
  *
- * Returns { username, firstName, lastName, isAdmin, jobs }
- *   where jobs is { id, title, companyHandle, companyName, state }
+ * Returns { username, firstName, lastName, isAdmin }
  *
  * Authorization required: admin or same user-as-:username
  **/
 
 router.get("/:username", ensureCorrectUserOrAdmin, async function (req, res, next) {
   try {
-    const user = await User.get(req.params.username);
+    const userInfo = await User.get(req.params.username);
+    const favorites = await User.getFavorites(req.params.username);
+    const buyOrders = await User.getBuys(req.params.username)
+    const sellOrders = await User.getSells(req.params.username)
+
+    const buys = buyOrders.map(buy => {
+      return {...buy, type: 'buy'}
+    })
+    const sells = sellOrders.map(sell => {
+      return {...sell, type: 'sell'}
+    })
+
+    const user = {
+      ...userInfo,
+      favorites: favorites[0] === null ? [] : favorites,
+      buys: buys,
+      sells: sells
+    }
     return res.json({ user });
   } catch (err) {
     return next(err);
@@ -79,12 +93,25 @@ router.get("/:username", ensureCorrectUserOrAdmin, async function (req, res, nex
 });
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 /** PATCH /[username] { user } => { user }
  *
  * Data can include:
- *   { firstName, lastName, password, email }
+ *   { username, firstName, lastName, password, email }
  *
- * Returns { username, firstName, lastName, email, isAdmin }
+ * Returns { firstName, lastName, email, isAdmin }
  *
  * Authorization required: admin or same-user-as-:username
  **/
@@ -98,12 +125,70 @@ router.patch("/:username", ensureCorrectUserOrAdmin, async function (req, res, n
     }
 
     const user = await User.update(req.params.username, req.body);
+
     return res.json({ user });
   } catch (err) {
     return next(err);
   }
 });
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+router.patch("/:username/favorites", ensureCorrectUserOrAdmin, async function (req, res, next) {
+  try {
+    req.body.action === '+' ? (
+      await User.addFavorite(req.params.username, req.body.id)
+    ) : (
+      await User.removeFavorite(req.params.username, req.body.id)
+    )
+
+    // Get full list of updated favorites to return
+    const favoritesArray = await User.getFavorites(req.params.username);
+    // return [] instead of [null] if no favorites
+    const favorites = favoritesArray[0] === null ? [] : favoritesArray
+
+    return res.json({ favorites });
+  } catch (err) {
+    return next(err);
+  }
+});
+
+router.post("/:username/trades", ensureCorrectUserOrAdmin, async function (req, res, next) {
+  try {
+    if (req.body.orderType === 'buy') {
+      await User.addBuy(req.body.username, req.body.assetID, req.body.asset, req.body.quantity, req.body.price);
+      const userOrders = await User.getBuys(req.body.username);
+      const updatedOrders = userOrders.map(order => {
+        return { ...order, type: 'buy'}
+      })
+      return res.json({ updatedOrders });
+      
+    } else {
+      await User.addSell(req.body.username, req.body.assetID, req.body.asset, req.body.quantity, req.body.price)
+      const userOrders = await User.getSells(req.body.username)
+      const updatedOrders = userOrders.map(order => {
+        return { ...order, type: 'sell'}
+      })
+      return res.json({ updatedOrders });
+
+    }
+  } catch (err) {
+    return next(err);
+  }
+});
 
 /** DELETE /[username]  =>  { deleted: username }
  *

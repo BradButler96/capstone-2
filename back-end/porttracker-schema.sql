@@ -10,3 +10,30 @@ CREATE TABLE users (
 );
 
 
+CREATE TABLE favorites (
+  id SERIAL PRIMARY KEY,
+  token_id INT NOT NULL,
+  user_id INT NOT NULL REFERENCES users ON DELETE CASCADE
+);
+
+
+CREATE TABLE buy_orders (
+  id SERIAL PRIMARY KEY,
+  user_id INT NOT NULL REFERENCES users ON DELETE CASCADE,
+  token_id INT NOT NULL,
+  token_name TEXT NOT NULL,
+  quantity NUMERIC (20, 6) NOT NULL,
+  price NUMERIC (20, 2) NOT NULL,
+  date_added TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE sell_orders (
+  id SERIAL PRIMARY KEY,
+  user_id INT NOT NULL REFERENCES users ON DELETE CASCADE,
+  token_id INT NOT NULL,
+  token_name TEXT NOT NULL,
+  quantity NUMERIC (20, 6) NOT NULL,
+  price NUMERIC (20, 2) NOT NULL,
+  date_added TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+

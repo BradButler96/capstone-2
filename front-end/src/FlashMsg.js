@@ -1,10 +1,10 @@
 import React from "react";
 import { Alert } from "reactstrap";
 
-const FlashMsg = ({ msgType, msgText }) => {
+const FlashMsg = ({ flashMsg }) => {
     return (
-        <Alert className={`alert alert-${msgType} col-10 mx-auto`}>
-            {msgText}
+        <Alert isOpen={flashMsg.open} className={`alert alert-${flashMsg.type}`}>
+            {flashMsg.text}
         </Alert>
     )
 }

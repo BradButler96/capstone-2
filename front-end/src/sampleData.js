@@ -1,228 +1,373 @@
-            setTokenList([
-                {
-                    "id":1,
-                    "name":"Bitcoin",
-                    "symbol":"BTC",
-                    "category":"coin",
-                    "description":"Bitcoin (BTC) is a cryptocurrency launched in 2010. Users are able to generate BTC through the process of mining. Bitcoin has a current supply of 19,531,443. The last known price of Bitcoin is 34,851.38436791 USD and is down -1.68 over the last 24 hours. It is currently trading on 10518 active market(s) with $21,084,488,001.47 traded over the last 24 hours. More information can be found at https://bitcoin.org/.",
-                    "slug":"bitcoin",
-                    "logo":"https://s2.coinmarketcap.com/static/img/coins/64x64/1.png",
-                    "subreddit":"bitcoin",
-                    "notice":"",
-                    "tags":["mineable","pow","sha-256","store-of-value","state-channel","coinbase-ventures-portfolio","three-arrows-capital-portfolio","polychain-capital-portfolio","binance-labs-portfolio","blockchain-capital-portfolio","boostvc-portfolio","cms-holdings-portfolio","dcg-portfolio","dragonfly-capital-portfolio","electric-capital-portfolio","fabric-ventures-portfolio","framework-ventures-portfolio","galaxy-digital-portfolio","huobi-capital-portfolio","alameda-research-portfolio","a16z-portfolio","1confirmation-portfolio","winklevoss-capital-portfolio","usv-portfolio","placeholder-ventures-portfolio","pantera-capital-portfolio","multicoin-capital-portfolio","paradigm-portfolio","bitcoin-ecosystem","ftx-bankruptcy-estate"],
-                    "tag-names":["Mineable","PoW","SHA-256","Store Of Value","State Channel","Coinbase Ventures Portfolio","Three Arrows Capital Portfolio","Polychain Capital Portfolio","Binance Labs Portfolio","Blockchain Capital Portfolio","BoostVC Portfolio","CMS Holdings Portfolio","DCG Portfolio","DragonFly Capital Portfolio","Electric Capital Portfolio","Fabric Ventures Portfolio","Framework Ventures Portfolio","Galaxy Digital Portfolio","Huobi Capital Portfolio","Alameda Research Portfolio","a16z Portfolio","1Confirmation Portfolio","Winklevoss Capital Portfolio","USV Portfolio","Placeholder Ventures Portfolio","Pantera Capital Portfolio","Multicoin Capital Portfolio","Paradigm Portfolio","Bitcoin Ecosystem","FTX Bankruptcy Estate "],
-                    "tag-groups":["OTHERS","ALGORITHM","ALGORITHM","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","PLATFORM","CATEGORY"],
-                    "urls":{
-                        "website":["https://bitcoin.org/"],
-                        "twitter":[],
-                        "message_board":["https://bitcointalk.org"],
-                        "chat":[],
-                        "facebook":[],
-                        "explorer":["https://blockchain.info/","https://live.blockcypher.com/btc/","https://blockchair.com/bitcoin","https://explorer.viabtc.com/btc","https://www.oklink.com/btc"],
-                        "reddit":["https://reddit.com/r/bitcoin"],
-                        "technical_doc":["https://bitcoin.org/bitcoin.pdf"],
-                        "source_code":["https://github.com/bitcoin/bitcoin"],
-                        "announcement":[]
-                        },
-                    "platform":null,
-                    "date_added":"2010-07-13T00:00:00.000Z",
-                    "twitter_username":"",
-                    "is_hidden":0,
-                    "date_launched":"2010-07-13T00:00:00.000Z",
-                    "contract_address":[],
-                    "self_reported_circulating_supply":null,
-                    "self_reported_tags":null,
-                    "self_reported_market_cap":null,
-                    "infinite_supply":false
-                }, {
-                    "id":1027,
-                    "name":"Ethereum",
-                    "symbol":"ETH",
-                    "category":"coin",
-                    "description":"Ethereum (ETH) is a cryptocurrency . Ethereum has a current supply of 120,268,792.38734597. The last known price of Ethereum is 1,798.21769599 USD and is down -2.47 over the last 24 hours. It is currently trading on 7688 active market(s) with $9,013,492,267.59 traded over the last 24 hours. More information can be found at https://www.ethereum.org/.",
-                    "slug":"ethereum",
-                    "logo":"https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
-                    "subreddit":"ethereum",
-                    "notice":"",
-                    "tags":["pos","smart-contracts","ethereum-ecosystem","coinbase-ventures-portfolio","three-arrows-capital-portfolio","polychain-capital-portfolio","binance-labs-portfolio","blockchain-capital-portfolio","boostvc-portfolio","cms-holdings-portfolio","dcg-portfolio","dragonfly-capital-portfolio","electric-capital-portfolio","fabric-ventures-portfolio","framework-ventures-portfolio","hashkey-capital-portfolio","kenetic-capital-portfolio","huobi-capital-portfolio","alameda-research-portfolio","a16z-portfolio","1confirmation-portfolio","winklevoss-capital-portfolio","usv-portfolio","placeholder-ventures-portfolio","pantera-capital-portfolio","multicoin-capital-portfolio","paradigm-portfolio","injective-ecosystem","layer-1","ftx-bankruptcy-estate"],
-                    "tag-names":["PoS","Smart Contracts","Ethereum Ecosystem","Coinbase Ventures Portfolio","Three Arrows Capital Portfolio","Polychain Capital Portfolio","Binance Labs Portfolio","Blockchain Capital Portfolio","BoostVC Portfolio","CMS Holdings Portfolio","DCG Portfolio","DragonFly Capital Portfolio","Electric Capital Portfolio","Fabric Ventures Portfolio","Framework Ventures Portfolio","Hashkey Capital Portfolio","Kenetic Capital Portfolio","Huobi Capital Portfolio","Alameda Research Portfolio","a16z Portfolio","1Confirmation Portfolio","Winklevoss Capital Portfolio","USV Portfolio","Placeholder Ventures Portfolio","Pantera Capital Portfolio","Multicoin Capital Portfolio","Paradigm Portfolio","Injective Ecosystem","Layer 1","FTX Bankruptcy Estate "],
-                    "tag-groups":["ALGORITHM","CATEGORY","PLATFORM","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","CATEGORY","PLATFORM","CATEGORY","CATEGORY"],
-                    "urls":{
-                        "website":["https://www.ethereum.org/","https://en.wikipedia.org/wiki/Ethereum"],
-                        "twitter":["https://twitter.com/ethereum"],
-                        "message_board":["https://forum.ethereum.org/","https://ethresear.ch/"],
-                        "chat":["https://gitter.im/orgs/ethereum/rooms"],
-                        "facebook":[],
-                        "explorer":["https://etherscan.io/","https://www.oklink.com/eth","https://blockchair.com/ethereum","https://bscscan.com/token/0x2170ed0880ac9a755fd29b2688956bd959f933f8","https://nearblocks.io/token/aurora"],
-                        "reddit":["https://reddit.com/r/ethereum"],
-                        "technical_doc":["https://github.com/ethereum/wiki/wiki/White-Paper"],
-                        "source_code":["https://github.com/ethereum/go-ethereum"],
-                        "announcement":["https://bitcointalk.org/index.php?topic=428589.0"]
-                    },
-                    "platform":null,"date_added":"2015-08-07T00:00:00.000Z",
-                    "twitter_username":"ethereum",
-                    "is_hidden":0,
-                    "date_launched":null,
-                    "contract_address":[
-                        {
-                            "contract_address":"0x2170ed0880ac9a755fd29b2688956bd959f933f8",
-                            "platform":{
-                                "name":"BNB Smart Chain (BEP20)",
-                                "coin":{
-                                    "id":"1839",
-                                    "name":"BNB",
-                                    "symbol":"BNB",
-                                    "slug":"bnb"
-                                }
-                            }
-                        },{
-                            "contract_address":"0x64ff637fb478863b7468bc97d30a5bf3a428a1fd",
-                            "platform":{
-                                "name":"HECO",
-                                "coin":{
-                                    "id":"2502",
-                                    "name":"Huobi Token",
-                                    "symbol":"HT","slug":
-                                    "htx-token"
-                                }
-                            }
-                        },{
-                            "contract_address":"0xf20d962a6c8f70c731bd838a3a388d7d48fa6e15",
-                            "platform":{
-                                "name":"Avalanche C-Chain",
-                                "coin":{
-                                    "id":"5805",
-                                    "name":"Avalanche",
-                                    "symbol":"AVAX",
-                                    "slug":"avalanche"
-                                }
-                            }
-                        },{
-                            "contract_address":"0x2eaa73bd0db20c64f53febea7b5f5e5bccc7fb8b",
-                            "platform":{
-                                "name":"TomoChain",
-                                "coin":{
-                                    "id":"2570",
-                                    "name":"Viction",
-                                    "symbol":"VIC",
-                                    "slug":"tomochain"
-                                }
-                            }
-                        },{
-                            "contract_address":"0x0200070000000000000000000000000000000000000000000000000000000000",
-                            "platform":{
-                                "name":"Sora",
-                                "coin":{
-                                    "id":"5802",
-                                    "name":"SORA",
-                                    "symbol":"XOR",
-                                    "slug":"sora"
-                                }
-                            }
-                        },{
-                            "contract_address":"0x1D931Bf8656d795E50eF6D639562C5bD8Ac2B78f",
-                            "platform":{
-                                "name":"RSK RBTC",
-                                "coin":{
-                                    "id":"3626",
-                                    "name":"Rootstock Smart Bitcoin",
-                                    "symbol":"RBTC",
-                                    "slug":"rsk-smart-bitcoin"
-                                }
-                            }
-                        },{
-                            "contract_address":"0x85219708c49aa701871ad330a94ea0f41dff24ca",
-                            "platform":{
-                                "name":"Velas",
-                                "coin":{
-                                    "id":"4747",
-                                    "name":"Velas",
-                                    "symbol":"VLX",
-                                    "slug":"velas"
-                                }
-                            }
-                        },{
-                            "contract_address":"2FPyTwcZLUg1MDrwsyoP4D6s1tM7hAkHYRjkNb5w6Pxk",
-                            "platform":{
-                                "name":"Solana",
-                                "coin":{
-                                    "id":"5426",
-                                    "name":"Solana",
-                                    "symbol":"SOL",
-                                    "slug":"solana"
-                                }
-                            }
-                        },{
-                            "contract_address":"0x34d21b1e550d73cee41151c77f3c73359527a396",
-                            "platform":{
-                                "name":"Klaytn",
-                                "coin":{
-                                    "id":"4256",
-                                    "name":"Klaytn",
-                                    "symbol":"KLAY",
-                                    "slug":"klaytn"
-                                }
-                            }
-                        },{
-                            "contract_address":"aurora",
-                            "platform":{
-                                "name":"Near",
-                                "coin":{
-                                    "id":"6535",
-                                    "name":"NEAR Protocol",
-                                    "symbol":"NEAR",
-                                    "slug":"near-protocol"
-                                }
-                            }
-                        },{
-                            "contract_address":"KT19at7rQUvyjxnZ2fBv7D9zc8rkyG7gAoU8",
-                            "platform":{
-                                "name":"Tezos",
-                                "coin":{
-                                    "id":"2011",
-                                    "name":"Tezos",
-                                    "symbol":"XTZ",
-                                    "slug":"tezos"
-                                }
-                            }
-                        },{
-                            "contract_address":"0x34a9c05b638020a07bb153bf624c8763bf8b4a86",
-                            "platform":{
-                                "name":"ETHW",
-                                "coin":{
-                                    "id":"21296",
-                                    "name":"EthereumPoW",
-                                    "symbol":"ETHW",
-                                    "slug":"ethereum-pow"
-                                }
-                            }
-                        },{
-                            "contract_address":"0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
-                            "platform":{
-                                "name":"Ethereum",
-                                "coin":{
-                                    "id":"1027",
-                                    "name":"Ethereum",
-                                    "symbol":"ETH",
-                                    "slug":"ethereum"
-                                }
-                            }
-                        },{
-                            "contract_address":"0x49d36570d4e46f48e99674bd3fcc84644ddd6b96f7c741b1562b82f9e004dc7",
-                            "platform":{
-                                "name":"Starknet",
-                                "coin":{
-                                    "id":"22691",
-                                    "name":"StarkNet Token",
-                                    "symbol":"STRK",
-                                    "slug":"starknet-token"
-                                }
-                            }
-                        }
-                    ],
-                    "self_reported_circulating_supply":null,
-                    "self_reported_tags":null,
-                    "self_reported_market_cap":null,
-                    "infinite_supply":true
-                }
-            ])
+
+setCategories([
+    {
+        id: '655c563a19d020516fba113a',
+        name: 'eGirl Capital Portfolio',
+        title: 'eGirl Capital Portfolio',
+        description: 'eGirl Capital Portfolio',
+        num_tokens: 12,
+        avg_price_change: -2.1262404637500003,
+        market_cap: 4242349318.7400007,
+        market_cap_change: -0.9377,
+        volume: 443241610.9964414,
+        volume_change: -1.8281750000000003,
+        last_updated: '2023-11-21T07:03:29.188Z'
+    },{
+        id: '655c542219d020516fba1022',
+        name: 'Standard Crypto Portfolio',
+        title: 'Standard Crypto Portfolio',
+        description: 'Standard Crypto Portfolio',
+        num_tokens: 10,
+        avg_price_change: 0.6836174444444445,
+        market_cap: 12931209006.020002,
+        market_cap_change: 0.8013555555555555,
+        volume: 851596079.1272411,
+        volume_change: 16.12521111111111,
+        last_updated: '2023-11-21T06:54:40.813Z'
+    },{
+        id: '655b7f01b5b0d755998089bd',
+        name: 'X1 Ecosystem',
+        title: 'X1 Ecosystem',
+        description: 'X1 Ecosystem',
+        num_tokens: 1,
+        avg_price_change: -0.45584379,
+        market_cap: 3377861731.29,
+        market_cap_change: -0.4558,
+        volume: 6745996.67411628,
+        volume_change: 31.9714,
+        last_updated: '2023-11-20T15:45:43.308Z'
+    },{
+        id: '654a0c87ba37f269c8016129',
+        name: 'BRC-20',
+        title: 'BRC-20',
+        description: 'BRC-20',
+        num_tokens: 30,
+        avg_price_change: -3.078284515555556,
+        market_cap: 410345106.85,
+        market_cap_change: -0.3009,
+        volume: 183735765.47955313,
+        volume_change: 4.824477777777778,
+        last_updated: '2023-11-20T10:51:37.137Z'
+    },{
+        id: '6513a01333cae40c55d561e0',
+        name: 'Modular Blockchain',
+        title: 'Modular Blockchain',
+        description: 'Modular Blockchain',
+        num_tokens: 15,
+        avg_price_change: 2.360873681111111,
+        market_cap: 11396600086.929998,
+        market_cap_change: 1.9520444444444445,
+        volume: 925793137.0830978,
+        volume_change: 14.459600000000002,
+        last_updated: '2023-11-20T10:51:50.449Z'
+    },{
+        id: '64e47d21ae41d47d40cc07bc',
+        name: 'Toncoin Ecosystem',
+        title: 'Toncoin Ecosystem',
+        description: 'Toncoin Ecosystem',
+        num_tokens: 15,
+        avg_price_change: 0.23054308666666665,
+        market_cap: 8347641563.72,
+        market_cap_change: -0.006491666666666666,
+        volume: 41447238.50365375,
+        volume_change: 223.978025,
+        last_updated: '2023-11-20T10:51:53.641Z'
+    }
+])
+setTokenList([
+    {
+        id:1,
+        name:"Bitcoin",
+        symbol:"BTC",
+        slug:"bitcoin",
+        num_market_pairs:10552,
+        date_added:"2010-07-13T00:00:00.000Z",
+        tags:[],
+        max_supply:21000000,
+        circulating_supply:19543325,
+        total_supply:19543325,
+        is_active:1,
+        infinite_supply:false,
+        platform:null,
+        cmc_rank:1,
+        is_fiat:0,
+        self_reported_circulating_supply:null,
+        self_reported_market_cap:null,
+        tvl_ratio:null,
+        last_updated:"2023-11-16T00:04:00.000Z",
+        quote: {
+            USD: {
+                price:37848.65787641297,
+                volume_24h:27365243398.053886,
+                volume_change_24h:15.0036,
+                percent_change_1h:0.108884,
+                percent_change_24h:6.47296534,
+                percent_change_7d:6.16473142,
+                percent_change_30d:32.61307512,
+                percent_change_60d:42.45745791,
+                percent_change_90d:42.05804101,
+                market_cap:739688621692.5486,
+                market_cap_dominance:51.393,
+                fully_diluted_market_cap:794821815404.67,
+                tvl:null,
+                last_updated:"2023-11-16T00:04:00.000Z"
+            }
+        }
+    },{
+        circulating_supply: 120214008.70752037,
+        cmc_rank: 2,
+        date_added: "2015-08-07T00:00:00.000Z",
+        id: 1027,
+        infinite_supply: true,
+        is_active: 1,
+        is_fiat: 0,
+        last_updated: "2023-12-13T01:40:00.000Z",
+        max_supply: null,
+        name: "Ethereum",
+        num_market_pairs: 8025,
+        platform: null,
+        quote: {
+            USD: {
+                fully_diluted_market_cap: 262506725106.65,
+                last_updated: "2023-12-13T01:40:00.000Z",
+                market_cap: 262506725106.64612,
+                market_cap_dominance: 16.9342,
+                percent_change_1h: -0.80879759,
+                percent_change_7d: -4.63883214,
+                percent_change_24h: -2.42320623,
+                percent_change_30d: 5.7722591,
+                percent_change_60d: 40.79448367,
+                percent_change_90d: 34.34992137,
+                price: 2183.661687427151,
+                tvl: null,
+                volume_24h: 11203092129.452059,
+                volume_change_24h: -38.2864
+            }
+        },
+        self_reported_circulating_supply: null,
+        self_reported_market_cap: null,
+        slug: "ethereum",
+        symbol: "ETH",
+        tags: [],
+        total_supply: 120214008.70752037,
+        tvl_ratio: null
+    }
+])
+setCategories([
+    {
+        "id":"6513a01333cae40c55d561e0",
+        "name":"Modular Blockchain",
+        "title":"Modular Blockchain",
+        "description":"Modular Blockchain",
+        "num_tokens":24,
+        "avg_price_change":5.014882847777777,
+        "market_cap":13226909264.05,
+        "market_cap_change":3.8164666666666665,
+        "volume":2208797910.290737,
+        "volume_change":-18.937733333333334,
+        "last_updated":"2023-09-27T03:23:09.024Z"
+    },{
+        "id":"654a0c87ba37f269c8016129",
+        "name":"BRC-20",
+        "title":"BRC-20",
+        "description":"BRC-20",
+        "num_tokens":15,
+        "avg_price_change":33.75056668235294,
+        "market_cap":529836079.5,
+        "market_cap_change":1.0254117647058822,
+        "volume":392061829.4428074,
+        "volume_change":26.227111764705885,
+        "last_updated":"2023-11-07T10:08:26.723Z"
+    }
+])
+setTokenHeader('Modular Blockchain')
+setTokens([{
+    id: 3890,
+    name: 'Polygon',
+    symbol: 'MATIC',
+    slug: 'polygon',
+    num_market_pairs: 1146,
+    date_added: '2019-04-28T00:00:00.000Z',
+    tags: [
+        'pos',
+        'platform',
+        'enterprise-solutions',
+        'zero-knowledge-proofs',
+        'scaling',
+        'state-channel',
+        'coinbase-ventures-portfolio',
+        'layer-2',
+        'binance-launchpad',
+        'binance-labs-portfolio',
+        'polygon-ecosystem',
+        'moonriver-ecosystem',
+        'injective-ecosystem',
+        'ftx-bankruptcy-estate',
+        'sec-security-token',
+        'alleged-sec-securities',
+        'modular-blockchain',
+        'standard-crypto-portfolio'
+    ],
+    max_supply: 10000000000,
+    circulating_supply: 9547835719.203985,
+    total_supply: 10000000000,
+    is_active: 1,
+    infinite_supply: false,
+    platform: null,
+    cmc_rank: 14,
+    is_fiat: 0,
+    self_reported_circulating_supply: null,
+    self_reported_market_cap: null,
+    tvl_ratio: null,
+    last_updated: '2023-12-12T00:10:00.000Z',
+    quote: { 
+        USD: {
+            fully_diluted_market_cap: 8415630834.65,
+            last_updated: "2023-12-12T00:10:00.000Z",
+            market_cap: 8035106068.26688,
+            market_cap_dominance: 0.5164,
+            percent_change_1h: 0.22486712,
+            percent_change_7d: 4.31209431,
+            percent_change_24h: -9.3321047,
+            percent_change_30d: 4.50060608,
+            percent_change_60d: 65.67310553,
+            percent_change_90d: 66.2597731,
+            price: 0.8415630834646134,
+            tvl: null,
+            volume_24h: 822267366.659092,
+            volume_change_24h: 76.1103
+        } 
+    }
+},{
+    id: 11840,
+    name: 'Optimism',
+    symbol: 'OP',
+    slug: 'optimism-ethereum',
+    num_market_pairs: 394,
+    date_added: '2022-05-31T16:19:46.000Z',
+    tags: [ 'layer-2', 'optimism-ecosystem', 'modular-blockchain' ],
+    max_supply: 4294967296,
+    circulating_supply: 911294948,
+    total_supply: 4294967296,
+    platform: {
+        id: 11840,
+        name: 'Optimism',
+        symbol: 'OP',
+        slug: 'optimism-ethereum',
+        token_address: '0x4200000000000000000000000000000000000042'
+    },
+    is_active: 1,
+    infinite_supply: false,
+    cmc_rank: 36,
+    is_fiat: 0,
+    self_reported_circulating_supply: null,
+    self_reported_market_cap: null,
+    tvl_ratio: null,
+    last_updated: '2023-12-12T00:10:00.000Z',
+    quote: { 
+        USD: {
+            fully_diluted_market_cap: 9827357073.09,
+            last_updated: "2023-12-12T00:10:00.000Z",
+            market_cap: 2085142967.5002983,
+            market_cap_dominance: 0.134,
+            percent_change_1h: 1.77483353,
+            percent_change_7d: 28.32189483,
+            percent_change_24h: 4.92136341,
+            percent_change_30d: 35.30306419,
+            percent_change_60d: 92.23177749,
+            percent_change_90d: 71.57069666,
+            price: 2.2881098727437457,
+            tvl: null,
+            volume_24h: 640442227.0891619,
+            volume_change_24h: 116.8594
+        }  
+    }
+},{
+    id: 22861,
+    name: 'Celestia',
+    symbol: 'TIA',
+    slug: 'celestia',
+    num_market_pairs: 102,
+    date_added: '2023-10-31T16:51:41.000Z',
+    tags: [ 'platform', 'modular-blockchain', 'egirl-capital-portfolio' ],
+    max_supply: null,
+    circulating_supply: 150029829.119831,
+    total_supply: 1008986301.369831,
+    platform: {
+        id: 12220,
+        name: 'Osmosis',
+        symbol: 'OSMO',
+        slug: 'osmosis',
+        token_address: 'ibc/D79E7D83AB399BFFF93433E54FAA480C191248FC556924A2A8351AE2638B3877'
+    },
+    is_active: 1,
+    infinite_supply: false,
+    cmc_rank: 45,
+    is_fiat: 0,
+    self_reported_circulating_supply: null,
+    self_reported_market_cap: null,
+    tvl_ratio: null,
+    last_updated: '2023-12-12T00:10:00.000Z',
+    quote: { 
+        USD: {
+            fully_diluted_market_cap: 10889321170.13,
+            last_updated: "2023-12-12T00:10:00.000Z",
+            market_cap: 1619172621.241378,
+            market_cap_dominance: 0.1041,
+            percent_change_1h: 0.19603344,
+            percent_change_7d: 23.42672944,
+            percent_change_24h: 9.68745539,
+            percent_change_30d: 170.0837732,
+            percent_change_60d: 413.74487256,
+            percent_change_90d: 413.74487256,
+            price: 10.792337968659028,
+            tvl: null,
+            volume_24h: 537784085.9973574,
+            volume_change_24h: 253.9161
+        }  
+    }
+},{
+    id: 11841,
+    name: 'Arbitrum',
+    symbol: 'ARB',
+    slug: 'arbitrum',
+    num_market_pairs: 651,
+    date_added: '2023-03-23T12:50:11.000Z',
+    tags: [ 'scaling', 'dao', 'dapp', 'ethereum-ecosystem', 'polychain-capital-portfolio', 'layer-2', 'rollups', 'pantera-capital-portfolio', 'arbitrum-ecosytem', 'modular-blockchain', 'egirl-capital-portfolio'],
+    max_supply: null,
+    circulating_supply: 1275000000,
+    total_supply: 10000000000,
+    platform: {
+        id: 11841,
+        name: 'Arbitrum',
+        symbol: 'ARB',
+        slug: 'arbitrum',
+        token_address: '0x912CE59144191C1204E64559FE8253a0e49E6548'
+    },
+    is_active: 1,
+    infinite_supply: false,
+    cmc_rank: 49,
+    is_fiat: 0,
+    self_reported_circulating_supply: null,
+    self_reported_market_cap: null,
+    tvl_ratio: null,
+    last_updated: '2023-12-12T00:10:00.000Z',
+    quote: { 
+        USD: {
+            fully_diluted_market_cap: 10950963749.09,
+            last_updated: "2023-12-12T00:10:00.000Z",
+            market_cap: 1396247878.0095477,
+            market_cap_dominance: 0.0897,
+            percent_change_1h: 0.28218376,
+            percent_change_7d: 0.81664804,
+            percent_change_24h: -5.59053378,
+            percent_change_30d: -3.8665726,
+            percent_change_60d: 36.21134661,
+            percent_change_90d: 39.68222577,
+            price: 1.095096374909449,
+            tvl: null,
+            volume_24h: 622727498.9283131,
+            volume_change_24h: 115.2931
+        }
+    }
+}])

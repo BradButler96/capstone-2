@@ -1,20 +1,27 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Navbar, NavItem, NavLink, Nav } from 'reactstrap';
+import default_pfp from './images/default_pfp.png';
 import './NavBar.css';
+
 
 const NavBar = ({ currUser, logout }) => {
     return (
         currUser.username !== '' ? (            
             <Navbar className='navbar' expand="sm">
                 <Nav className="mr-auto" navbar>
-                    <NavItem>
-                        <NavLink href={`/${currUser.username}`}>Profile</NavLink>
+                    <NavItem className='d-flex align-items-center justify-content-center'>
+                        <NavLink href={`/User/${currUser.username}`} className='mx-auto p-0'>                    
+                            <img src={currUser.pfp === '' ? default_pfp : currUser.pfp} 
+                                 alt={`${currUser.username} profile picture`}
+                                 className='mx-auto p-0'
+                                 style={{ borderRadius: '50%', width: '2rem' }}
+                            />
+                        </NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="/">Home</NavLink>
+                        <NavLink href="/Crypto/Browse">Tokens</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="/Browse">Browse</NavLink>
+                        <NavLink href="/Crypto/Categories">Categories</NavLink>
                     </NavItem>
                 </Nav>
                 <Nav className="ml-auto" navbar>
@@ -27,13 +34,10 @@ const NavBar = ({ currUser, logout }) => {
             <Navbar className='navbar' expand="sm">
                 <Nav className="mr-auto" navbar>
                     <NavItem>
-                        <NavLink href={`/Login`}>Profile</NavLink>
+                        <NavLink href="/Crypto/Browse">Tokens</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink href="/">Home</NavLink>
-                    </NavItem>
-                    <NavItem>
-                        <NavLink href="/Browse">Browse</NavLink>
+                        <NavLink href="/Crypto/Categories">Categories</NavLink>
                     </NavItem>
                 </Nav>
                 <Nav className="ml-auto" navbar>

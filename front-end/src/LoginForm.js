@@ -3,9 +3,6 @@ import { Button } from "reactstrap";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 
-
-
-
 const LoginForm = ({ login }) => {
     const initialState = {
         username: '',
@@ -14,7 +11,6 @@ const LoginForm = ({ login }) => {
 
     const [formData, setFormData] = useState(initialState);
     const [passwordType, setPasswordType] = useState('password');
-
 
     const togglePassword = () => {
         passwordType === 'password' 

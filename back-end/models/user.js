@@ -62,7 +62,7 @@ class User {
     const duplicateCheck = await db.query(
           `SELECT username
            FROM users
-           WHERE username = $1`,
+           WHERE username ILIKE $1`,
         [username],
     );
 
@@ -204,13 +204,147 @@ class User {
            FROM users
            WHERE username = $1
            RETURNING username`,
-        [username],
+        [username]
     );
     const user = result.rows[0];
 
     if (!user) throw new NotFoundError(`No user: ${username}`);
   }
+
+  static async getFavorites(username) {
+    const favorites = await db.query(
+      `SELECT f.token_id
+       FROM favorites f 
+       FULL JOIN users u 
+       ON f.user_id = u.id
+       WHERE u.username LIKE $1`,
+       [username]
+    )
+
+    // Create array of token ID values instead of array of objects
+    // [1] instead of [{token_id: 1}]
+    const modifiedFavorites = favorites.rows.map(fav => fav.token_id)
+
+    return modifiedFavorites
+  }
+
+  static async addFavorite(username, id) {
+    const userQuery = await db.query(
+      `SELECT id
+       FROM users
+       WHERE username = $1`, 
+      [username])
+
+    const duplicateCheck = await db.query(
+      `SELECT token_id
+       FROM favorites
+       WHERE token_id = $1
+       AND user_id = $2`,
+    [id, userQuery.rows[0].id],
+    );
+
+    if (duplicateCheck.rows[0]) {
+      throw new BadRequestError(`Already favorited: ${id}`);
+    }
+
+    const favorites = await db.query(
+      `INSERT INTO favorites (token_id, user_id)
+       VALUES ($1, $2)
+       RETURNING token_id`,
+       [id, userQuery.rows[0].id]
+    )
+
+    return favorites.rows[0]
+  }
+
+  static async removeFavorite(username, id) {
+    const userQuery = await db.query(
+      `SELECT id
+       FROM users
+       WHERE username = $1`, 
+      [username])
+
+    const favorites = await db.query(
+      `DELETE 
+       FROM favorites
+       WHERE token_id = $1
+       AND user_id = $2
+       RETURNING token_id`,
+       [id, userQuery.rows[0].id]
+    )
+
+    return favorites.rows[0]
+  }
+
+  static async getBuys(username) {
+    const userQuery = await db.query(
+      `SELECT id
+       FROM users
+       WHERE username = $1`, 
+      [username])
+
+    const buys = await db.query(
+      `SELECT *
+       FROM buy_orders
+       WHERE user_id = $1`,
+      [userQuery.rows[0].id]
+    ) 
+
+    return buys.rows
+
+  }
+
+  static async getSells(username) {
+    const userQuery = await db.query(
+      `SELECT id
+       FROM users
+       WHERE username = $1`, 
+      [username])
+
+    const sells = await db.query(
+      `SELECT *
+       FROM sell_orders
+       WHERE user_id = $1`,
+      [userQuery.rows[0].id]
+    ) 
+
+    return sells.rows
+  }
+
+  static async addBuy(username, assetID, asset, quantity, price) {
+    const userQuery = await db.query(
+      `SELECT id
+       FROM users
+       WHERE username = $1`, 
+      [username])
+
+    const buyOrder = await db.query(
+      `INSERT INTO buy_orders (user_id, token_id, token_name, quantity, price)
+       VALUES ($1, $2, $3, $4, $5)
+       RETURNING user_id, token_id, token_name, quantity, price`,
+       [userQuery.rows[0].id, assetID, asset, quantity, price]
+    )
+
+    return buyOrder.rows
+  }
+
+  static async addSell(username, assetID, asset, quantity, price) {
+    const userQuery = await db.query(
+      `SELECT id
+       FROM users
+       WHERE username = $1`, 
+      [username])
+
+    const sellOrder = await db.query(
+      `INSERT INTO sell_orders (user_id, token_id, token_name, quantity, price)
+       VALUES ($1, $2, $3, $4, $5)
+       RETURNING user_id, token_id, token_name, quantity, price`,
+       [userQuery.rows[0].id, assetID, asset, quantity, price]
+    )
+
+    return sellOrder.rows
+  }
 }
 
-
 module.exports = User;
+

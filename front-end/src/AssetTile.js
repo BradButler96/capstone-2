@@ -1,47 +1,62 @@
 import React from "react";
-import { useState } from "react";
-import { Card, CardBody, CardTitle, } from "reactstrap";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faStar as faStarSolid } from '@fortawesome/free-solid-svg-icons'
+import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './AssetTile.css';
 
-const AssetTile = ({ type, asset, key }) => {
 
+const AssetTile = ({ asset, favorites, updateFavorite }) => {
+    
+    const fontColor = (field) => {
+        if (field > 0) return 'text-success'
+        else if (field < 0) return 'text-danger'
+    }
+    
     return (
-        type === 'crypto' ? (
-            <>
-                <Card className='mx-auto col-10'>
-                    <CardBody id={key}>
-                        <CardTitle className="d-flex align-items-center ">
-                            {/* {JSON.stringify(asset)} */}
-                            {/* {<img 
-                                src={asset.logo} 
-                                alt={asset.name} 
-                                style={{width: '1rem'}}
-                                className='mx-2'  
-                            />}  */}
+            asset ? (
+                <>
+                    <td>
+                        {favorites.indexOf(asset.id) > -1 ? (
+                            <FontAwesomeIcon icon={faStarSolid} onClick={() => updateFavorite('-', asset.id)} />
+                        ) : (
+                            <FontAwesomeIcon icon={faStarRegular} onClick={() => updateFavorite('+', asset.id)} />
+                        ) }
+                    </td>
 
-                            <table>
-                                <tr>
-                                    <td>{asset.name} ({asset.symbol})</td>
-                                    <td>${asset.quote.USD.price.toFixed(2)}</td>
-                                    <td>${asset.quote.USD.market_cap.toFixed(2)}</td>
-                                </tr>
-                            </table>
-
-                        </CardTitle>
-                    </CardBody>
-                </Card>
-            </>
-        ) : (
-            <>
-                <Card className='mx-auto col-10'>
-                    <CardBody id={key}>
-                        <CardTitle>
-                            "Stonks"
-                        </CardTitle>
-                    </CardBody>
-                </Card>
-            </>
-        )
+                    <td className='text-center ps-1 pe-2'>
+                        {asset.cmc_rank}.
+                    </td>
+                    <td className='text-start pe-0'>
+                        <Link to={`/Crypto/${asset.id}`} className='text-decoration-none text-reset'>
+                            {asset.name} ({asset.symbol})
+                        </Link>
+                    </td>
+                    <td className='text-start'>
+                        ${asset.quote.USD.price > 0.01 ? (
+                            asset.quote.USD.price.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                        ) : (
+                            asset.quote.USD.price.toFixed(10)
+                        )}
+                    </td>
+                    <td className={`text-start ${fontColor(asset.quote.USD.percent_change_24h)}`}>
+                        {asset.quote.USD.percent_change_24h.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}%
+                    </td>
+                    <td className='text-start'>
+                        ${asset.quote.USD.volume_24h.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </td>
+                    <td className={`text-start ${fontColor(asset.quote.USD.volume_change_24h)}`}>
+                        {asset.quote.USD.volume_change_24h.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}%
+                    </td>
+                    <td className='text-start'>
+                        ${asset.quote.USD.market_cap.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                    </td>
+                </>
+            ) : (
+                <div></div>
+            )
+            
 
     )
 

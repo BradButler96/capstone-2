@@ -67,7 +67,6 @@ const ProfileEditForm = ({ currUser, toggleForm, editUser }) => {
                                 autoFocus
                                 type='email'
                                 name='email'
-                                placeholder='Email'
                                 value={formData.email || ''}
                                 onChange={handleChange}
                             />
@@ -91,7 +90,6 @@ const ProfileEditForm = ({ currUser, toggleForm, editUser }) => {
                                     autoFocus
                                     type='text'
                                     name='firstName'
-                                    placeholder='firstName'
                                     value={formData.firstName || ''}
                                     onChange={handleChange}
                                 />
@@ -114,7 +112,6 @@ const ProfileEditForm = ({ currUser, toggleForm, editUser }) => {
                                     autoFocus
                                     type='text'
                                     name='lastName'
-                                    placeholder='Last Name'
                                     value={formData.lastName || ''}
                                     onChange={handleChange}
                                 />
@@ -126,34 +123,42 @@ const ProfileEditForm = ({ currUser, toggleForm, editUser }) => {
                 <Form.Group className='form-input-container text-start my-4'>
                     <InputGroup>
                         {formData.password === '' ? (
-                            <Form.Control 
-                                required
-                                className='form-label'
-                                type={passwordType}
-                                name='password'
-                                placeholder='Password'
-                                value={formData.password || ''}
-                                onChange={handleChange}
-                            />
-                        ) : (
-                            <FloatingLabel controlId='password' label='Password'>
-                                <Form.Control
+                            <>
+                                <Form.Control 
                                     required
-                                    autoFocus
+                                    className='form-input'
                                     type={passwordType}
                                     name='password'
                                     placeholder='Password'
                                     value={formData.password || ''}
                                     onChange={handleChange}
+                                    style={{height: '2.5rem'}}
                                 />
-                            </FloatingLabel>
+                                <Button variant="link" size='sm' onClick={togglePassword} className='form-btn' style={{height: '2.5rem'}}>
+                                {passwordType === 'password' 
+                                    ? <FontAwesomeIcon icon={faEye} /> 
+                                    : <FontAwesomeIcon icon={faEyeSlash} />}
+                                </Button>
+                            </>
+                        ) : (
+                            <>
+                                <FloatingLabel controlId='password' label='Password'>
+                                    <Form.Control
+                                        required
+                                        autoFocus
+                                        type={passwordType}
+                                        name='password'
+                                        value={formData.password || ''}
+                                        onChange={handleChange}
+                                    />
+                                </FloatingLabel>
+                                <Button variant="link" size='sm' onClick={togglePassword}>
+                                {passwordType === 'password' 
+                                    ? <FontAwesomeIcon icon={faEye} /> 
+                                    : <FontAwesomeIcon icon={faEyeSlash} />}
+                                </Button>
+                            </>
                         )}
-
-                        <Button variant="link" onClick={togglePassword}>
-                            {passwordType === 'password' 
-                                ? <FontAwesomeIcon icon={faEye} /> 
-                                : <FontAwesomeIcon icon={faEyeSlash} />}
-                        </Button>
                     </InputGroup>
                 </Form.Group>
 

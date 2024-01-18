@@ -3,6 +3,8 @@ import { useParams } from 'react-router-dom';
 import CryptoAPI from './CryptoAPI'
 import TokenTable from './TokenTable'
 import SortingClass from './SortingClass'
+import LoadingIcon from './LoadingIcon'
+
 
 const CategoriesTokenList = ({ currUser, updateFavorite }) => {
 
@@ -52,7 +54,9 @@ const CategoriesTokenList = ({ currUser, updateFavorite }) => {
 
             </div>
         ) : (
-            <div>Loading...</div>
+            <div className='mx-5'>
+                <LoadingIcon />
+            </div>
         )
     )
 }

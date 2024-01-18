@@ -1,13 +1,12 @@
 
-.form-label {
+.form-input {
     color:#5A5A5A;
     margin-bottom: 0;
     padding-bottom: 0;
-
 }
 
 .btn-link {
-    border: white !important;
+    border: black !important;
     color: #5A5A5A !important;
     background-color: white !important;
 }

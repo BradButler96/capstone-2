@@ -6,13 +6,13 @@ import LoginForm from './LoginForm'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './Login.css';
 
-const Login = ({ login, currUser, flashMsg }) => {
+const Login = ({ login, currUser, flashMsg, setFlashMsg }) => {
     return (
         currUser.username !== '' ? <Navigate to='/' /> : (
             <>
                 {flashMsg.for === 'login' ? (
                     <div className='d-block mt-5 mx-auto col-10'>
-                        <FlashMsg flashMsg={flashMsg} />
+                        <FlashMsg flashMsg={flashMsg} setFlashMsg={setFlashMsg} />
                     </div>
                 ) : <></>}
                 <div className='d-flex align-items-center justify-content-center' style={{height:'85vh'}}>

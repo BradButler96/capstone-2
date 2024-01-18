@@ -1,6 +1,8 @@
 import React from "react";
 import { Table } from "reactstrap";
 import { v4 as uuid } from 'uuid';
+import LoadingIcon from './LoadingIcon'
+
 
 const TradeList = ({ tradeList }) => {
     const formatDatetime = (dt) => {
@@ -39,7 +41,9 @@ const TradeList = ({ tradeList }) => {
                 </tbody>
             </Table>
         ) : (
-            <div>Loading...</div>
+            <div className='mx-5'>
+                <LoadingIcon />
+            </div>
         )
     )
 }

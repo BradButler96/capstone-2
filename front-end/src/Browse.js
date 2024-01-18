@@ -1,4 +1,4 @@
-import { React, useState, useEffect, useRef } from "react";
+import { React, useState, useEffect } from "react";
 import { useSearchParams } from 'react-router-dom';
 import { Button } from "reactstrap";
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -13,8 +13,10 @@ const Browse = ({ currUser, categories, setCategories, updateFavorite }) => {
     const [searchParams] = useSearchParams()
     const category = searchParams.get('category')
     const [tokenList, setTokenList] = useState()
-    const sortBy = useRef('')
-    const sortDirection = useRef('')
+    // Must keep ranked list to keep duplicate filtering more efficient
+    const [rankedTokenList, setRankedTokenList] = useState()
+    const [sortDirection, setSortDirection] = useState()
+    const [sortBy, setSortBy] = useState()
 
     const checkOverlap = (arr1, arr2) => {
         const lastArr1 = arr1[arr1.length - 1]
@@ -34,41 +36,53 @@ const Browse = ({ currUser, categories, setCategories, updateFavorite }) => {
         return filtered
     }
 
-    // **************************************** Revisit this ****************************************
-    // Rewrite to get new tokenList from start to finish
     const loadMoreTokens = async () => {
         const res = await CryptoAPI.getTokenList(tokenList.length);
         const sortedRes = res.tokens.sort((a,b) => a.cmc_rank - b.cmc_rank)
-        const filtered = checkOverlap(tokenList, sortedRes)   
-        const sorted = SortingClass.sortTokens(filtered, sortBy.current, sortBy.current, sortDirection.current)
-        setTokenList(sorted)        
+        const filtered = checkOverlap(rankedTokenList, sortedRes)   
+        setTokenList(filtered)
+        setRankedTokenList(filtered)
     }
 
-    // **************************************** Revisit this ****************************************
-    const sortTokens = async (header) => {
-        if (header !== sortBy.current) sortDirection.current = 'ascending'
+
+    const sortHeader = async (header) => {
+        if (header !== sortBy) setSortDirection('ascending')
         else {
-            if (sortDirection.current === 'ascending') sortDirection.current = 'descending'
-            else if (sortDirection.current === 'descending') sortDirection.current = ''
-            else sortDirection.current = 'ascending'
+            if (sortDirection === 'ascending') setSortDirection('descending') 
+            else if (sortDirection === 'descending') setSortDirection('') 
+            else setSortDirection('ascending')
         }
 
-        if (header === 'favorites' && sortDirection.current === '') {
-            const res = await getCrypto()
-            setTokenList(res)
-        } else if (header === 'favorites' && sortDirection.current !== '') {
-            // Rewrite so it gets all favorited tokens, places them in front of tokenList
-            // Order tokenList by favorites then mcap
-            const res = await CryptoAPI.getFavoriteTokens(currUser.favorites.join(','))
-            const favoriteTokens = Object.keys(res.token.data).map(key => res.token.data[key])
-            const tokens = SortingClass.sortTokens(favoriteTokens, header, sortDirection.current)
-            setTokenList(tokens)
-        } else {
-            setTokenList(SortingClass.sortTokens(tokenList, header, sortDirection.current))
-        }
-
-        sortBy.current = header
+        setSortBy(header)
     }
+
+    useEffect(() => {
+        const sortAssets = async () => {
+            let sorted;
+    
+            if (tokenList) {
+                if (sortDirection === 'ascending') {
+                    if (sortBy === 'name') 
+                        sorted = [...tokenList].sort((a,b) => a[sortBy].localeCompare(b[sortBy]))
+                    else if (sortBy === 'favorites') 
+                        sorted = [...tokenList].sort((a,b) => a.cmc_rank - b.cmc_rank)
+                    else 
+                        sorted = [...tokenList].sort((a,b) => b.quote.USD[sortBy] - a.quote.USD[sortBy])
+                } else if (sortDirection === 'descending') {
+                    if (sortBy === 'name') 
+                        sorted = [...tokenList].sort((a,b) => b[sortBy].localeCompare(a[sortBy]))
+                    else if (sortBy === 'favorites') 
+                        sorted = [...tokenList].sort((a,b) => b.cmc_rank - a.cmc_rank)
+                    else 
+                        sorted = [...tokenList].sort((a,b) => a.quote.USD[sortBy] - b.quote.USD[sortBy])
+                } else {
+                    sorted = [...tokenList].sort((a,b) => a.cmc_rank - b.cmc_rank)
+                }
+                setTokenList(sorted)
+            }
+        }
+        sortAssets()
+    }, [sortBy, sortDirection, rankedTokenList])
 
     useEffect(() => {
         const getAssets = async () => {
@@ -81,9 +95,11 @@ const Browse = ({ currUser, categories, setCategories, updateFavorite }) => {
             if (searchParams.get('category') === null) {    
                 const res = await getCrypto()
                 setTokenList(res)
+                setRankedTokenList(res)
             } else {
                 const res = await CryptoAPI.getTokensByCat(searchParams.get('category'))
                 setTokenList(res.tokens.data.coins)
+                setRankedTokenList(res.tokens.data.coins)
             }            
         }
         getAssets()
@@ -98,23 +114,25 @@ const Browse = ({ currUser, categories, setCategories, updateFavorite }) => {
                 <DropdownCat type='Categories' options={categories} catID={category} />
             </span>
             <div className='my-2'>
-                {tokenList ? (               
+                {tokenList ? (        
+                    <>    
                     <TokenTable 
                         currUser={currUser}
                         tokenList={tokenList} 
                         updateFavorite={updateFavorite}
-                        sortBy={sortBy.current} 
-                        sortDirection={sortDirection.current} 
-                        sortTokens={sortTokens}
-                        forFavs={false}
-                    />        
+                        sortBy={sortBy} 
+                        sortDirection={sortDirection} 
+                        sortTokens={sortHeader}
+                    />     
+                    <Button className='col-3 mt-3 mb-4 mx-auto' onClick={() => loadMoreTokens()}>Load More</Button>   
+                    </>   
                 ) : (
-                    <div classname='mx-5'>
+                    <div className='mx-5'>
                         <LoadingIcon />
                     </div>
                 )}
             </div>
-            <Button className='col-3 mt-3 mb-4 mx-auto' onClick={() => loadMoreTokens()}>Load More</Button>
+            
         </div>   
     )
 

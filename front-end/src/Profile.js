@@ -20,7 +20,7 @@ import classnames from 'classnames';
 import ProfileFavoritesTab from './ProfileFavoritesTab'
 import ProfileTradesTab from './ProfileTradesTab'
 
-const Profile = ({ editUser, currUser, flashMsg, addTrade, updateFavorite }) => {
+const Profile = ({ editUser, currUser, flashMsg, setFlashMsg, addTrade, updateFavorite }) => {
     const [formDisplay, setFormDisplay] = useState('none');
     const [infoDisplay, setInfoDisplay] = useState('');
     const [currentActiveTab, setCurrentActiveTab] = useState('1'); 
@@ -64,7 +64,7 @@ const Profile = ({ editUser, currUser, flashMsg, addTrade, updateFavorite }) => 
             <div className='home-container mx-auto '>
                 {flashMsg.for === 'profile' ? (
                     <div className='mx-auto col-10'>
-                        <FlashMsg flashMsg={flashMsg} />
+                        <FlashMsg flashMsg={flashMsg} setFlashMsg={setFlashMsg} />
                     </div>
                 ) : <></>}
                 <div className='user-info-edit-form'

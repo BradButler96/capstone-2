@@ -27,8 +27,7 @@ function App() {
     text: '',
     type: '',
     for: '',
-    open: false,
-    timer: 10
+    repeat: ''
   }
 
   const [localUser, setLocalUser] = useLocalStorage('user', userInitState)
@@ -37,7 +36,6 @@ function App() {
   const [token, setToken] = useState()
   const [categories, setCategories] = useState()
   const [favoriteTokens, setFavoriteTokens] = useState()
-  const [timer, setTimer] = useState(10)
 
   const register = async (userInfo) => {
     try{
@@ -50,8 +48,7 @@ function App() {
         text: `Welcome ${userInfo.user.username}`,
         type: 'success',
         for: 'profile',
-        open: true,
-        timer: 10
+        repeat: flashMsg.repeat === true ? false : true
       })
 
     } catch (err) {
@@ -59,8 +56,7 @@ function App() {
         text: err[0],
         type: 'danger',
         for: 'registration',
-        open: true,
-        timer: 10
+        repeat: flashMsg.repeat === true ? false : true
       })
     }
   }
@@ -89,8 +85,7 @@ function App() {
         text: err[0],
         type: 'danger',
         for: 'login',
-        open: true,
-        timer: 10
+        repeat: flashMsg.repeat === true ? false : true
       })
     }
   }
@@ -106,8 +101,7 @@ function App() {
         text: `Welcome ${userInfo.user.username}`,
         type: 'success',
         for: 'profile',
-        open: true,
-        timer: 10
+        repeat: flashMsg.repeat === true ? false : true
       })
 
     } catch (err) {
@@ -115,8 +109,7 @@ function App() {
         text: err[0],
         type: 'danger',
         for: 'login',
-        open: true,
-        timer: 10
+        repeat: flashMsg.repeat === true ? false : true
       })
     }
   }
@@ -129,8 +122,7 @@ function App() {
       text: 'See you later!',
       type: 'info',
       for: 'login',
-      open: true,
-      timer: 10
+      repeat: flashMsg.repeat === true ? false : true
     })
   }
 
@@ -186,16 +178,14 @@ function App() {
         text: `Transaction has been added`,
         type: 'success',
         for: 'profile',
-        open: true,
-        timer: 10
+        repeat: flashMsg.repeat === true ? false : true
       })
     } else {
       setFlashMsg({
         text: `Token could not be found. Make sure you submitted the selected asset ID type.`,
         type: 'danger',
         for: 'profile',
-        open: true,
-        timer: 10
+        repeat: flashMsg.repeat === true ? false : true
       })
     }
   }
@@ -205,26 +195,6 @@ function App() {
     setCurrUser(localUser)
     PortTrackerAPI.token = localUser.token
   }, [localUser])
-
-
-  // Set timer to remove flash message
-  useEffect(() => {
-    if (flashMsg.open) {
-      setInterval(() => {
-        setTimer((timer) => timer -= 1)
-      }, 1000)
-    } else {
-      setTimer(10)
-    }
-  }, [flashMsg])
-
-  // Remove flash message after 10 seconds
-  useEffect(() => {
-    if (timer === 0) {
-      flashMsg.open = false
-      setTimer(10)
-    }
-  }, [timer])
 
   return (
     <div className="App">
@@ -239,6 +209,7 @@ function App() {
           editUser={editUser}
           currUser={currUser}         
           flashMsg={flashMsg}
+          setFlashMsg={setFlashMsg}
           token={token}
           setToken={setToken}
           categories={categories}

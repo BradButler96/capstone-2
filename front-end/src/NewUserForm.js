@@ -66,7 +66,6 @@ const NewUserForm = ({ register }) => {
                                     autoFocus
                                     type='text'
                                     name='username'
-                                    placeholder='Username'
                                     value={formData.username || ''}
                                     onChange={handleChange}
                                 />
@@ -92,7 +91,6 @@ const NewUserForm = ({ register }) => {
                                         autoFocus
                                         type={passwordType}
                                         name='password'
-                                        placeholder='Password'
                                         value={formData.password || ''}
                                         onChange={handleChange}
                                     />
@@ -123,7 +121,6 @@ const NewUserForm = ({ register }) => {
                                         autoFocus
                                         type='text'
                                         name='firstName'
-                                        placeholder='firstName'
                                         value={formData.firstName || ''}
                                         onChange={handleChange}
                                     />
@@ -145,7 +142,6 @@ const NewUserForm = ({ register }) => {
                                         autoFocus
                                         type='text'
                                         name='lastName'
-                                        placeholder='Last Name'
                                         value={formData.lastName || ''}
                                         onChange={handleChange}
                                     />
@@ -169,7 +165,6 @@ const NewUserForm = ({ register }) => {
                                     autoFocus
                                     type='email'
                                     name='email'
-                                    placeholder='Email'
                                     value={formData.email || ''}
                                     onChange={handleChange}
                                 />
@@ -182,14 +177,6 @@ const NewUserForm = ({ register }) => {
                             Profile Picture
                         </label>
                         <UploadWidget />
-                        {/* <input 
-                            type='file'
-                            name='pfp'
-                            className="col-12 input-lg me-auto"
-                            value={formData.pfp || ''}
-                            onChange={handleChange}
-                            accept='image/*'
-                        /> */}
                     </div>
     
                     <Row>

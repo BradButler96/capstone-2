@@ -3,14 +3,14 @@ import { Navigate, Link } from "react-router-dom";
 import NewUserForm from './NewUserForm'
 import FlashMsg from './FlashMsg'
 
-const NewUser = ({ register, currUser, flashMsg }) => {
+const NewUser = ({ register, currUser, flashMsg, setFlashMsg }) => {
 
     return (
         currUser.username !== '' ? <Navigate to='/' /> : (
             <div>
                 {flashMsg.for === 'registration' ? (
                     <div className='mt-5 mx-auto col-10'>
-                        <FlashMsg flashMsg={flashMsg} />
+                        <FlashMsg flashMsg={flashMsg} setFlashMsg={setFlashMsg} />
                     </div>
                 ) : <></>}
                 

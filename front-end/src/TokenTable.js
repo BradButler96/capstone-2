@@ -6,26 +6,14 @@ import AssetTile from './AssetTile'
 import FilterIcon from './FilterIcon'
 import LoadingIcon from './LoadingIcon'
 
-const TokenTable = ({ currUser, tokenList, updateFavorite, sortBy, sortDirection, sortTokens, forFavs }) => {
+const TokenTable = ({ currUser, tokenList, updateFavorite, sortBy, sortDirection, sortTokens }) => {
 
     return (
         tokenList ? (
             <Table striped hover dark className='browse-table col-12 mx-auto'>
                 <thead>
                     <tr>
-                        {!forFavs ? (
-                            <th className='table-header text-center text-nowrap' onClick={()=> sortTokens('favorites')}>                            
-                                <div className='d-inline px-2'>
-                                    <FilterIcon 
-                                        type='favorites' 
-                                        currentFilter={sortBy} 
-                                        direction={sortDirection} 
-                                    />
-                                </div>
-                            </th>
-                        ) : (
-                            <th></th>
-                        )}
+                        <th></th>
                         <th></th>
                         <th className='table-header text-start text-nowrap' onClick={()=> sortTokens('name')}>
                             <div className='d-inline'>Name</div>  

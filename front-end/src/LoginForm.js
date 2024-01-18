@@ -1,7 +1,10 @@
 import React, { useState } from "react";
-import { Button } from "reactstrap";
+// import { Button } from "reactstrap";
+import { Row, Form, FloatingLabel, InputGroup, Button } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
+import './Form.css'
+
 
 const LoginForm = ({ login }) => {
     const initialState = {
@@ -38,51 +41,82 @@ const LoginForm = ({ login }) => {
     }
 
     return (
-        <form className="form" onSubmit={handleSubmit}>
-            <div className='form-input-container text-start my-4'>
-                <label className="col-12 h5" htmlFor='username'>
-                    Username
-                </label>
-                <input 
-                    type='text'
+        <Form onSubmit={handleSubmit} className='form my-4'>
+        <Form.Group className='my-2'>
+            {formData.username === '' ? (
+                <Form.Control 
+                    type='username'
                     name='username'
-                    className="col-12 input-lg"
+                    placeholder='Username'
                     value={formData.username || ''}
                     onChange={handleChange}
                 />
-            </div>
+            ) : (
+                <FloatingLabel controlId='username' label='Username'>
+                    <Form.Control 
+                        autoFocus
+                        type='username'
+                        name='username'
+                        value={formData.username || ''}
+                        onChange={handleChange}
+                    />
+                </FloatingLabel>
+            )}
+        </Form.Group>
 
-            <div className='form-input-container text-start my-4'>
-                <label className="col-10 h5" htmlFor='password'>
-                    Password
-                </label>
-                <input 
-                    type={passwordType}
-                    name='password'
-                    className="col-11 input-lg"
-                    value={formData.password || ''}
-                    onChange={handleChange}
-                />
+        <Form.Group className='form-input-container text-start my-4'>
+            <InputGroup>
+                {formData.password === '' ? (
+                    <>
+                        <Form.Control 
+                            required
+                            className='form-input'
+                            type={passwordType}
+                            name='password'
+                            placeholder='Password'
+                            value={formData.password || ''}
+                            onChange={handleChange}
+                            style={{height: '2.5rem'}}
+                        />
+                        <Button variant="link" onClick={togglePassword} className='py-0' style={{height: '2.5rem'}}>
+                        {passwordType === 'password' 
+                            ? <FontAwesomeIcon icon={faEye} /> 
+                            : <FontAwesomeIcon icon={faEyeSlash} />}
+                        </Button>
+                    </>
+                ) : (
+                    <>
+                        <FloatingLabel controlId='password' label='Password'>
+                            <Form.Control
+                                required
+                                autoFocus
+                                type={passwordType}
+                                name='password'
+                                value={formData.password || ''}
+                                onChange={handleChange}
+                            />
+                        </FloatingLabel>
+                        <Button variant="link" size='sm' onClick={togglePassword}>
+                        {passwordType === 'password' 
+                            ? <FontAwesomeIcon icon={faEye} /> 
+                            : <FontAwesomeIcon icon={faEyeSlash} />}
+                        </Button>
+                    </>
+                )}
+            </InputGroup>
+        </Form.Group>
+
+        <Row>
+            <Form.Group className='my-3'>
                 <Button 
-                    className="col-1 px-0" 
-                    size='sm' 
-                    onClick={() => togglePassword()} 
-                >
-                    {passwordType === 'password' 
-                    ? <FontAwesomeIcon icon={faEye} /> 
-                    : <FontAwesomeIcon icon={faEyeSlash} />}
-                </Button>
-            </div>
-
-            <Button 
-                className='login-btn col-6 mx-auto my-2' 
-                color="primary" 
-                size='lg'
-                outline
-            >Login</Button>
-        </form>
+                    type='submit'
+                    variant='outline-success'
+                    className='col-4 mx-2' 
+                >Submit</Button>
+            </Form.Group>
+        </Row>
+    </Form>
     )
-
 }
 
 export default LoginForm

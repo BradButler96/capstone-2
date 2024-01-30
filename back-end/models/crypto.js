@@ -1,6 +1,9 @@
 
+const API_KEY = process.env.REACT_APP_API_KEY
+const BASE_URL = 'https://pro-api.coinmarketcap.com'
 
 class Crypto {
+
     static async getIDsByRank(start, limit) {
         try {
             const res = await fetch(`${BASE_URL}/v1/cryptocurrency/map?start=${start}&limit=${limit}&sort=cmc_rank`, {
@@ -16,12 +19,16 @@ class Crypto {
             return tokenIDs
           
         } catch (err) {
-            return next(err);
+            console.error("API Error:", err.response);
+            let message = err.response.data.error.message;
+            throw Array.isArray(message) ? message : [message];
         }
     }
 
     static async getQuotesByID(tokenIDs) {
         try {
+            console.log(BASE_URL)
+            console.log(API_KEY)
             const res = await fetch(`${BASE_URL}/v2/cryptocurrency/quotes/latest?id=${tokenIDs}`, {
                 method: 'get',
                 headers: {
@@ -32,7 +39,9 @@ class Crypto {
             return tokenQuotes
           
         } catch (err) {
-            return next(err);
+            console.error("API Error:", err.response);
+            let message = err.response.data.error.message;
+            throw Array.isArray(message) ? message : [message];
         }
     }
 
@@ -49,7 +58,9 @@ class Crypto {
             return tokenInfo
           
         } catch (err) {
-            return next(err);
+            console.error("API Error:", err.response);
+            let message = err.response.data.error.message;
+            throw Array.isArray(message) ? message : [message];
         }
     }
 
@@ -66,7 +77,9 @@ class Crypto {
             return categories
             
         } catch (err) {
-            return next(err);
+            console.error("API Error:", err.response);
+            let message = err.response.data.error.message;
+            throw Array.isArray(message) ? message : [message];
         }
     }
 
@@ -83,7 +96,9 @@ class Crypto {
             return catInfo
             
         } catch (err) {
-            return next(err);
+            console.error("API Error:", err.response);
+            let message = err.response.data.error.message;
+            throw Array.isArray(message) ? message : [message];
         }
     }
 
@@ -100,7 +115,9 @@ class Crypto {
             return tokens
           
         } catch (err) {
-            return next(err);
+            console.error("API Error:", err.response);
+            let message = err.response.data.error.message;
+            throw Array.isArray(message) ? message : [message];
         }
     }
 

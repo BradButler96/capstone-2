@@ -25,6 +25,7 @@ const ProfileFavoritesTab = ({ currUser, updateFavorite }) => {
     useEffect(() => {
         const getFavorites = async () => {
             const res = await CryptoAPI.getFavoriteTokens(currUser.favorites.join(','));
+            console.log(res)
             const favoriteTokensArray = Object.keys(res.token.data).map(key => res.token.data[key])
             sortBy.current === '' ? (
                 setFavTokens(favoriteTokensArray.sort((a,b) => a.cmc_rank - b.cmc_rank))
@@ -51,7 +52,7 @@ const ProfileFavoritesTab = ({ currUser, updateFavorite }) => {
                 /> 
             </div> 
         ) : (
-            <div classname='mx-5'>
+            <div className='mx-5'>
                 <LoadingIcon />
             </div>
         )

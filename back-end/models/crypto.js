@@ -1,6 +1,4 @@
 
-const BASE_URL = 'https://pro-api.coinmarketcap.com'
-const API_KEY = 'b1627456-450a-4ff2-8a9f-c7facb603810'
 
 class Crypto {
     static async getIDsByRank(start, limit) {
@@ -58,7 +56,6 @@ class Crypto {
     static async getCats(start, limit) {
         try {
             const res = await fetch(`${BASE_URL}/v1/cryptocurrency/categories`, {
-            // const res = await fetch(`${BASE_URL}/v1/cryptocurrency/categories?start=${start}&limit=${limit}`, {
                 method: 'get',
                 headers: {
                       'X-CMC_PRO_API_KEY': API_KEY

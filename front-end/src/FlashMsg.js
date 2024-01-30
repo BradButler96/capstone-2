@@ -24,7 +24,7 @@ const FlashMsg = ({ flashMsg, setFlashMsg }) => {
                         text: '',
                         type: '',
                         for: '',
-                        repeat: flashMsg.repeat === true ? false : true
+                        repeat: flashMsg.repeat
                     })  
                 }, 100)
             }

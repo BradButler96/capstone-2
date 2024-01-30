@@ -92,20 +92,6 @@ router.get("/:username", ensureCorrectUserOrAdmin, async function (req, res, nex
   }
 });
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 /** PATCH /[username] { user } => { user }
  *
  * Data can include:
@@ -131,21 +117,6 @@ router.patch("/:username", ensureCorrectUserOrAdmin, async function (req, res, n
     return next(err);
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 router.patch("/:username/favorites", ensureCorrectUserOrAdmin, async function (req, res, next) {
   try {

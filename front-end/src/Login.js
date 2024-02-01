@@ -19,9 +19,6 @@ const Login = ({ login, currUser, flashMsg, setFlashMsg }) => {
                     
                     <Card className='col-6 d-flex align-items-center justify-content-center'>
                         <CardBody className='col-8 mx-auto'>
-                            <CardTitle className="text-center" style={{ fontSize: 'xx-large' }}>
-                                Login Below:
-                            </CardTitle>
                             <LoginForm login={login} />    
                             <Link to='/SignUp'><small>Need an account? Register here!</small></Link>
                         </CardBody>

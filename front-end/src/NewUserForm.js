@@ -2,7 +2,6 @@ import { React, useState } from "react";
 import { Row, Form, FloatingLabel, InputGroup, Button } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
-import UploadWidget from './UploadWidget';
 import './Form.css'
 
 const NewUserForm = ({ register }) => {
@@ -48,8 +47,8 @@ const NewUserForm = ({ register }) => {
     }
 
     return (
-            <div className='mx-auto col-6'>
-                <div className='display-5 text-start border-bottom mt-5'>Register Here</div>
+            <div className='mx-auto'>
+                <div className='display-5 text-start border-bottom mt-3'>Register Here</div>
                 <Form onSubmit={handleSubmit} className='form my-4'>
                     <Form.Group>
                         {formData.username === '' ? (
@@ -172,15 +171,15 @@ const NewUserForm = ({ register }) => {
                         )}
                     </Form.Group>
 
-                    <div className='form-input-container text-start my-4'>
+                    {/* <div className='form-input-container text-start my-4'>
                         <label className="col-12 h5" htmlFor='email'>
                             Profile Picture
                         </label>
                         <UploadWidget />
-                    </div>
+                    </div> */}
     
                     <Row>
-                        <Form.Group className='my-3'>
+                        <Form.Group className='mt-3'>
                             <Button 
                                 type='submit'
                                 variant='outline-success'

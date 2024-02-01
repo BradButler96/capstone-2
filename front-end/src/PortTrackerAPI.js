@@ -53,7 +53,6 @@ class PortTrackerAPI {
 
       res.user.token = PortTrackerAPI.token
       return res.user
-
   }
 
   static async updateFavorites(username, action, tokenID) {

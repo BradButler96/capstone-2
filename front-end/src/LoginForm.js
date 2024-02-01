@@ -41,81 +41,84 @@ const LoginForm = ({ login }) => {
     }
 
     return (
-        <Form onSubmit={handleSubmit} className='form my-4'>
-        <Form.Group className='my-2'>
-            {formData.username === '' ? (
-                <Form.Control 
-                    type='username'
-                    name='username'
-                    placeholder='Username'
-                    value={formData.username || ''}
-                    onChange={handleChange}
-                />
-            ) : (
-                <FloatingLabel controlId='username' label='Username'>
+        <div className='mx-auto'>
+            <div className='display-5 text-start border-bottom mt-2'>Login Here</div>
+            <Form onSubmit={handleSubmit} className='form my-4'>
+            <Form.Group className='my-2'>
+                {formData.username === '' ? (
                     <Form.Control 
-                        autoFocus
                         type='username'
                         name='username'
+                        placeholder='Username'
                         value={formData.username || ''}
                         onChange={handleChange}
                     />
-                </FloatingLabel>
-            )}
-        </Form.Group>
-
-        <Form.Group className='form-input-container text-start my-4'>
-            <InputGroup>
-                {formData.password === '' ? (
-                    <>
-                        <Form.Control 
-                            required
-                            className='form-input'
-                            type={passwordType}
-                            name='password'
-                            placeholder='Password'
-                            value={formData.password || ''}
-                            onChange={handleChange}
-                            style={{height: '2.5rem'}}
-                        />
-                        <Button variant="link" onClick={togglePassword} className='py-0' style={{height: '2.5rem'}}>
-                        {passwordType === 'password' 
-                            ? <FontAwesomeIcon icon={faEye} /> 
-                            : <FontAwesomeIcon icon={faEyeSlash} />}
-                        </Button>
-                    </>
                 ) : (
-                    <>
-                        <FloatingLabel controlId='password' label='Password'>
-                            <Form.Control
+                    <FloatingLabel controlId='username' label='Username'>
+                        <Form.Control 
+                            autoFocus
+                            type='username'
+                            name='username'
+                            value={formData.username || ''}
+                            onChange={handleChange}
+                        />
+                    </FloatingLabel>
+                )}
+            </Form.Group>
+
+            <Form.Group className='form-input-container text-start my-4'>
+                <InputGroup>
+                    {formData.password === '' ? (
+                        <>
+                            <Form.Control 
                                 required
-                                autoFocus
+                                className='form-input'
                                 type={passwordType}
                                 name='password'
+                                placeholder='Password'
                                 value={formData.password || ''}
                                 onChange={handleChange}
+                                style={{height: '2.5rem'}}
                             />
-                        </FloatingLabel>
-                        <Button variant="link" size='sm' onClick={togglePassword}>
-                        {passwordType === 'password' 
-                            ? <FontAwesomeIcon icon={faEye} /> 
-                            : <FontAwesomeIcon icon={faEyeSlash} />}
-                        </Button>
-                    </>
-                )}
-            </InputGroup>
-        </Form.Group>
-
-        <Row>
-            <Form.Group className='my-3'>
-                <Button 
-                    type='submit'
-                    variant='outline-success'
-                    className='col-4 mx-2' 
-                >Submit</Button>
+                            <Button variant="link" onClick={togglePassword} className='py-0' style={{height: '2.5rem'}}>
+                            {passwordType === 'password' 
+                                ? <FontAwesomeIcon icon={faEye} /> 
+                                : <FontAwesomeIcon icon={faEyeSlash} />}
+                            </Button>
+                        </>
+                    ) : (
+                        <>
+                            <FloatingLabel controlId='password' label='Password'>
+                                <Form.Control
+                                    required
+                                    autoFocus
+                                    type={passwordType}
+                                    name='password'
+                                    value={formData.password || ''}
+                                    onChange={handleChange}
+                                />
+                            </FloatingLabel>
+                            <Button variant="link" size='sm' onClick={togglePassword}>
+                            {passwordType === 'password' 
+                                ? <FontAwesomeIcon icon={faEye} /> 
+                                : <FontAwesomeIcon icon={faEyeSlash} />}
+                            </Button>
+                        </>
+                    )}
+                </InputGroup>
             </Form.Group>
-        </Row>
-    </Form>
+
+            <Row>
+                <Form.Group className='mt-3'>
+                    <Button 
+                        type='submit'
+                        variant='outline-success'
+                        className='col-4 mx-2' 
+                    >Submit</Button>
+                </Form.Group>
+            </Row>
+        </Form>
+    </div>
     )
 }
 

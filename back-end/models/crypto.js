@@ -27,8 +27,6 @@ class Crypto {
 
     static async getQuotesByID(tokenIDs) {
         try {
-            console.log(BASE_URL)
-            console.log(API_KEY)
             const res = await fetch(`${BASE_URL}/v2/cryptocurrency/quotes/latest?id=${tokenIDs}`, {
                 method: 'get',
                 headers: {

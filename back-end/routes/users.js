@@ -82,7 +82,7 @@ router.get("/:username", ensureCorrectUserOrAdmin, async function (req, res, nex
 
     const user = {
       ...userInfo,
-      favorites: favorites[0] === null ? [] : favorites,
+      favorites: favorites,
       buys: buys,
       sells: sells
     }
@@ -129,7 +129,7 @@ router.patch("/:username/favorites", ensureCorrectUserOrAdmin, async function (r
     // Get full list of updated favorites to return
     const favoritesArray = await User.getFavorites(req.params.username);
     // return [] instead of [null] if no favorites
-    const favorites = favoritesArray[0] === null ? [] : favoritesArray
+    const favorites = favoritesArray
 
     return res.json({ favorites });
   } catch (err) {

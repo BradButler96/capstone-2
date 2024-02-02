@@ -223,7 +223,7 @@ class User {
 
     // Create array of token ID values instead of array of objects
     // [1] instead of [{token_id: 1}]
-    const modifiedFavorites = favorites.rows.map(fav => fav.token_id)
+    const modifiedFavorites = favorites.rows[0].token_id ? favorites.rows.map(fav => fav.token_id) : []
 
     return modifiedFavorites
   }

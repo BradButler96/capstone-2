@@ -134,10 +134,10 @@ function App() {
     })
   }
 
-  const getFavoriteTokens = async () => {
-    const res = await CryptoAPI.getFavoriteTokens(currUser.favorites.join(','));
-    return res.token.data
-  }
+  // const getFavoriteTokens = async () => {
+  //   const res = await CryptoAPI.getFavoriteTokens(currUser.favorites.join(','));
+  //   return res.token.data
+  // }
 
   const addTrade = async (data) => {
     const check = await CryptoAPI.getToken(data.assetIDType.toLowerCase(), data.asset.toLowerCase())

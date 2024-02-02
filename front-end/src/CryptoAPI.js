@@ -19,7 +19,7 @@ class CryptoAPI {
         }
     }
 
-    static async getTokenList(start = 1, limit = 10) {
+    static async getTokenList(start = 1, limit = 50) {
       const res = await this.request(`crypto/browse`, {
         start: start, 
         limit: limit

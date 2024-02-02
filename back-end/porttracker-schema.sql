@@ -9,13 +9,11 @@ CREATE TABLE users (
   is_admin BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-
 CREATE TABLE favorites (
   id SERIAL PRIMARY KEY,
   token_id INT NOT NULL,
   user_id INT NOT NULL REFERENCES users ON DELETE CASCADE
 );
-
 
 CREATE TABLE buy_orders (
   id SERIAL PRIMARY KEY,

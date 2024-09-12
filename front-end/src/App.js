@@ -9,6 +9,8 @@ import CryptoAPI from './CryptoAPI'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
+// Test
+
 function App() {
 
   const userInitState = {
